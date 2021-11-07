@@ -25,7 +25,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["react", "@typescript-eslint", "react-native"],
+  "plugins": ["react", "@typescript-eslint", "react-native", "module-resolver"],
   "settings": {
     "react-native/style-sheet-object-names": ["EStyleSheet", "OtherStyleSheet", "PStyleSheet"]
   },
@@ -41,6 +41,15 @@
       "warn",
       "asc",
       { "ignoreClassNames": true, "ignoreStyleProperties": false }
+    ],
+    // Alias paths ESLint
+    "module-resolver/use-alias": [
+      "error",
+      {
+        "ignoreDepth": 2,
+        "allowDepthMoreOrLessThanEquality": false,
+        "extensions": [".ts", ".tsx", ".jsx"]
+      }
     ]
   }
 }

@@ -20,15 +20,15 @@
       "@molecules/*": ["src/components/molecules/*"],
       "@organisms/*": ["src/components/organisms/*"],
       "@templates/*": ["src/components/templates/*"],
+      "@navigation/*": ["src/navigation/*"],
       "@config/*": ["src/config/*"],
-      "@contexts/*": ["src/contexts/*"],
-      "@pages/*": ["src/pages/*"],
+      "@stores/*": ["src/stores/*"],
+      "@screens/*": ["src/screens/*"],
       "@styles/*": ["src/styles/*"],
       "@hooks/*": ["src/hooks/*"],
       "@enums": ["src/enums/*"],
       "@interfaces/*": ["src/interfaces/*"],
-      "@utils/*": ["src/utils/*"],
-      "@hoc/*": ["src/hoc/*"]
+      "@utils/*": ["src/utils/*"]
     }
   },
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
