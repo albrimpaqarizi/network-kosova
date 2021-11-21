@@ -26,10 +26,10 @@
       "@screens/*": ["src/screens/*"],
       "@styles/*": ["src/styles/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@enums": ["src/enums/*"],
+      "@enums/*": ["src/enums/*"],
       "@interfaces/*": ["src/interfaces/*"],
       "@utils/*": ["src/utils/*"]
     }
   },
-  "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
+  "exclude": ["babel.config.js", "metro.config.js"]
 }

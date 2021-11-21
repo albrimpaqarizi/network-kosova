@@ -3,19 +3,25 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
 
-import Colors from '../constants/Colors';
+// hooks
 import { useColorScheme } from '@hooks/index';
-import ModalScreen from '@screens/ModalScreen';
-import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+
+// screens
+import { TabOneScreen, TabTwoScreen, ModalScreen, NotFoundScreen } from '@screens/index';
+
+// styles
+import { colors } from '@styles/index';
+
+// import NotFoundScreen from '../screens/NotFoundScreen';
+// import TabOneScreen from '../screens/TabOneScreen';
+// import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -59,40 +65,42 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: colors[colorScheme].tint,
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
+        name="home"
         component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+        options={({ navigation }: RootTabScreenProps<'home'>) => ({
+          tabBarIcon: () => <AntDesign name="home" size={30} color="white" />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
+              style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
             >
               <FontAwesome
                 name="info-circle"
                 size={25}
-                color={Colors[colorScheme].text}
+                color={colors[colorScheme].text}
                 style={{ marginRight: 15 }}
               />
             </Pressable>
           ),
+          headerStyle: {
+            backgroundColor: '#f4511e',
+          },
         })}
       />
       <BottomTab.Screen
-        name="TabTwo"
+        name="tag"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: () => <AntDesign name="tags" size={30} color="white" />,
+          headerStyle: {
+            backgroundColor: '#ca005e',
+          },
         }}
       />
     </BottomTab.Navigator>
