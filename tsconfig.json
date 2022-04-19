@@ -1,6 +1,28 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react-native",
+    "lib": ["es2017"],
+    "moduleResolution": "node",
+    "noEmit": true,
+    "module": "es2020",
+    "strict": true,
+    "target": "esnext",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"],
+      "components/*": ["src/components/*"],
+      "atoms": ["src/components/atoms"],
+      "templates": ["src/components/templates"],
+      "hooks/*": ["src/hooks/*"],
+      "navigation/*": ["src/navigation/*"],
+      "interfaces/*": ["src/interfaces/*"],
+      "theme/*": ["src/theme/*"]
+    }
+  },
+  "exclude": ["node_modules", "babel.config.js"]
 }
