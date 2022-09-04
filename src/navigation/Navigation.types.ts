@@ -1,8 +1,3 @@
-/**
- * Learn more about using TypeScript with React Navigation:
- * https://reactnavigation.org/docs/typescript/
- */
-
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -14,9 +9,29 @@ declare global {
 }
 
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined;
+  // home: NavigatorScreenParams<RootTabParamList> | undefined;
+  // auth: NavigatorScreenParams<AuthTabParamList> | undefined;
+  home: undefined;
+  tag: undefined;
+  welcome: undefined;
+  login: undefined;
+  register: undefined;
+  forgot: undefined;
+  load: undefined;
   Modal: undefined;
   NotFound: undefined;
+};
+
+export type RootTabParamList = {
+  home: undefined;
+  tag: undefined;
+};
+
+export type AuthTabParamList = {
+  welcome: undefined;
+  login: undefined;
+  register: undefined;
+  forgot: undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
@@ -24,10 +39,10 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
   Screen
 >;
 
-export type RootTabParamList = {
-  home: undefined;
-  tag: undefined;
-};
+export type AuthStackScreenProps<Screen extends keyof AuthTabParamList> = NativeStackScreenProps<
+  AuthTabParamList,
+  Screen
+>;
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,

@@ -31,7 +31,7 @@
     "switch:command",
     "push:command"
   ],
-  "window.zoomLevel": -1,
+  "window.zoomLevel": 0,
   "docker.commands.attach": [null],
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

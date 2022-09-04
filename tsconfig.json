@@ -14,21 +14,22 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@atoms/*": ["src/components/atoms/*"],
-      "@molecules/*": ["src/components/molecules/*"],
-      "@organisms/*": ["src/components/organisms/*"],
-      "@templates/*": ["src/components/templates/*"],
+      "@atoms": ["src/components/atoms/index"],
+      "@molecules": ["src/components/molecules/index"],
+      "@organisms": ["src/components/organisms/index"],
+      "@templates": ["src/components/templates/index"],
       "@navigation/*": ["src/navigation/*"],
       "@config/*": ["src/config/*"],
-      "@stores/*": ["src/stores/*"],
+      "@store": ["src/store/index"],
+      "@firebase/*": ["src/firebase/*"],
       "@screens/*": ["src/screens/*"],
       "@styles/*": ["src/styles/*"],
       "@hooks/*": ["src/hooks/*"],
       "@enums/*": ["src/enums/*"],
-      "@interfaces/*": ["src/interfaces/*"],
-      "@utils/*": ["src/utils/*"]
+      "@interfaces": ["src/interfaces/index"],
+      "@utils": ["src/utils/index"],
+      "@validations/*": ["src/validations/*"],
+      "@/*": ["src/*"]
     }
   },
   "exclude": ["babel.config.js", "metro.config.js"]
