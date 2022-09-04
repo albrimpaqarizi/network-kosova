@@ -1,5 +1,5 @@
-import { HStack, Spinner, View } from 'native-base';
 import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { HStack, Spinner, View } from 'native-base';
 import { LoadDataProps } from './Loader.types';
 
 export const Loader = ({ loading, condition, children, fallback, time = 300 }: LoadDataProps) => {

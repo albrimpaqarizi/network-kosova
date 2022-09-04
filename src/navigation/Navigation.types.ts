@@ -1,16 +1,15 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-declare global {
-  namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
-  }
-}
+// declare global {
+//   namespace ReactNavigation {
+//     interface RootParamList = RootStackParamList;
+//   }
+// }
 
 export type RootStackParamList = {
   // home: NavigatorScreenParams<RootTabParamList> | undefined;
-  // auth: NavigatorScreenParams<AuthTabParamList> | undefined;
   home: undefined;
   tag: undefined;
   welcome: undefined;
@@ -27,20 +26,9 @@ export type RootTabParamList = {
   tag: undefined;
 };
 
-export type AuthTabParamList = {
-  welcome: undefined;
-  login: undefined;
-  register: undefined;
-  forgot: undefined;
-};
-
+// eslint-disable-next-line prettier/prettier
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
   RootStackParamList,
-  Screen
->;
-
-export type AuthStackScreenProps<Screen extends keyof AuthTabParamList> = NativeStackScreenProps<
-  AuthTabParamList,
   Screen
 >;
 

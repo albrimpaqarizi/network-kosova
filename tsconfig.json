@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-native",
-    "lib": ["es2017"],
+    "lib": ["ESNext"],
     "moduleResolution": "node",
     "noEmit": true,
     "strict": true,
@@ -32,5 +32,6 @@
       "@/*": ["src/*"]
     }
   },
-  "exclude": ["babel.config.js", "metro.config.js"]
+  "include": ["src"],
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
 }

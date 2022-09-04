@@ -1,7 +1,7 @@
+import { AuthUserModel, Nullable } from '@interfaces';
 import create from 'zustand';
 
 // types
-import { AuthUserModel, Nullable } from '@interfaces';
 import { AuthStateTypes } from './auth.types';
 
 export const useAuthStore = create<AuthStateTypes>((set) => ({

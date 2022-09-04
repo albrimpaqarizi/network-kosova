@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Center, Heading, HStack, Spinner, View } from 'native-base';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { useNavigation } from '@react-navigation/native';
-
 import { auth } from '@firebase/config';
 import { ForgotPasswordForm, ForgotPasswordInputs } from '@organisms';
 
@@ -35,7 +35,7 @@ const ForgotPasswordScreen = () => {
         width="100%"
         justifyContent="center"
         alignItems="center"
-        style={loading && { display: 'none' }}
+        style={loading && styles.hidden}
       >
         <Heading size="2xl" mb="10" color="primary.600">
           Reset password
@@ -44,7 +44,7 @@ const ForgotPasswordScreen = () => {
         <ForgotPasswordForm handleOnSubmit={handleOnSubmit} />
       </View>
 
-      <HStack space={8} justifyContent="center" style={!loading && { display: 'none' }}>
+      <HStack space={8} justifyContent="center" style={!loading && styles.hidden}>
         <Spinner size="lg" />
       </HStack>
     </Center>
@@ -52,3 +52,7 @@ const ForgotPasswordScreen = () => {
 };
 
 export default ForgotPasswordScreen;
+
+const styles = StyleSheet.create({
+  hidden: { display: 'none' },
+});

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { View, Text } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
+import { View, Text } from 'native-base';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 const NotFoundScreen = () => {
   // hooks

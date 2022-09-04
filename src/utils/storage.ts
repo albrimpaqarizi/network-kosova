@@ -5,13 +5,12 @@ export const getStorageData = async (key: string) => {
     const value = await AsyncStorage.getItem(key);
     return value;
   } catch (e) {
-    console.error('e', e);
     return null;
   }
 };
 export const removeStorageData = async (key: string) => {
   try {
-    const value = await AsyncStorage.removeItem(key);
+    await AsyncStorage.removeItem(key);
     return true;
   } catch {
     return false;
@@ -23,7 +22,6 @@ export const storeStorageData = async (key: string, value: string | boolean | nu
     await AsyncStorage.setItem(key, value.toString());
     return true;
   } catch (e) {
-    console.error('e', e);
     return false;
   }
 };

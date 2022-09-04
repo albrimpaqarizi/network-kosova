@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { Center, Text, Button, Heading, HStack, Spinner, View } from 'native-base';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useAuthStore } from '@store';
-
-import { auth } from '@firebase/config';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { Center, Text, Button, Heading, HStack, Spinner, View } from 'native-base';
+import { Alert, StyleSheet } from 'react-native';
 import { LoginForm, LoginInputs } from '@organisms';
-import { useNavigation } from '@react-navigation/native';
-import { useFocusEffect } from '@react-navigation/native';
-import { Alert } from 'react-native';
+import { auth } from '@firebase/config';
+import { useAuthStore } from '@store';
 
 const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -24,7 +22,7 @@ const LoginScreen = () => {
       return () => {
         Alert.alert('Root Screen was unfocused');
       };
-    }, [])
+    }, [navigation])
   );
 
   const handleOnSubmit = ({ email, password }: LoginInputs) => {
@@ -59,7 +57,7 @@ const LoginScreen = () => {
         width="100%"
         justifyContent="center"
         alignItems="center"
-        style={loading && { display: 'none' }}
+        style={loading && styles.hidden}
       >
         <Heading size="2xl" mb="10" color="primary.600">
           Sign in
@@ -72,7 +70,7 @@ const LoginScreen = () => {
         </Button>
       </View>
 
-      <HStack space={8} justifyContent="center" style={!loading && { display: 'none' }}>
+      <HStack space={8} justifyContent="center" style={!loading && styles.hidden}>
         <Spinner size="lg" />
       </HStack>
     </Center>
@@ -80,3 +78,7 @@ const LoginScreen = () => {
 };
 
 export default LoginScreen;
+
+const styles = StyleSheet.create({
+  hidden: { display: 'none' },
+});

@@ -1,14 +1,13 @@
 {
   "env": {
     "browser": true,
-    "es2021": true,
+    "es2022": true,
     "react-native/react-native": true
   },
   "extends": [
     "eslint:recommended",
     "airbnb",
     "airbnb/hooks",
-    "prettier",
     "plugin:prettier/recommended",
     "plugin:react-native/all",
     "plugin:react/recommended",
@@ -19,16 +18,18 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 12,
-    "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": ["./tsconfig.json"]
   },
+
   "plugins": [
     "react",
     "@typescript-eslint",
+    "prettier",
     "react-native",
     "module-resolver",
     "simple-import-sort",
@@ -36,7 +37,16 @@
   ],
   "settings": {
     "react-native/style-sheet-object-names": ["EStyleSheet", "OtherStyleSheet", "PStyleSheet"],
-    "import/extensions": [".ts", ".tsx", ".js", ".jsx"],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
     "import/resolver": {
       "typescript": {
         "project": "."
@@ -52,7 +62,7 @@
     "react-native/split-platform-components": 2,
     "react-native/no-inline-styles": 2,
     "react-native/no-color-literals": 2,
-    "react-native/no-raw-text": 2,
+    "react-native/no-raw-text": "off",
     "react-native/no-single-element-style-arrays": 2,
     "react-native/sort-styles": [
       "warn",
@@ -90,6 +100,10 @@
     // limits objects if enabled but part of recommaded plugin
     // disables nasty underscore dangle
     "no-underscore-dangle": "error",
+    "import/no-named-as-default": 0,
+    "import/no-duplicates": ["warn", { "considerQueryString": true }],
+    "react/jsx-props-no-spreading": "off",
+    "react/no-unescaped-entities": "off",
     // will save us debuging time
     "nonblock-statement-body-position": "error",
     // this will allow both named and arrow functions as callbacks
@@ -100,13 +114,14 @@
     "no-implied-eval": "off",
     "no-throw-literal": "off",
     "no-return-await": "off",
+    "react/jsx-filename-extension": "off",
     "comma-dangle": "off",
     "no-unused-vars": "off",
     // consistent with prettier
     "max-len": [
       "warn",
       {
-        "code": 80,
+        "code": 100,
         "ignoreStrings": true,
         "ignoreTemplateLiterals": true,
         "ignoreComments": true
@@ -128,7 +143,13 @@
     //
     // Prettier rules
     //
-    "prettier/prettier": ["error"],
+    "prettier/prettier": [
+      "warn",
+      {
+        "singleQuote": true,
+        "parser": "flow"
+      }
+    ],
     //
     //  IMPORT RULES
     //
@@ -140,7 +161,9 @@
     // makes grouping harder
     "import/newline-after-import": "warn",
     // make sure imports are resolved
-    "import/no-unresolved": 2,
+    // "import/no-unresolved": [2, { "caseSensitive": false }],
+    "import/no-unresolved": "warn",
+    "import/no-cycle": [2, { "maxDepth": 1 }],
     // makes code cleaner this way
     "import/extensions": [
       "error",
@@ -152,155 +175,17 @@
         "jsx": "never"
       }
     ],
-    "import/order": [
-      "warn",
-      {
-        "groups": ["builtin", "external", "internal", "sibling", "parent", "index", "object"],
-        "pathGroups": [
-          {
-            "pattern": "react",
-            "group": "builtin",
-            "position": "before"
-          },
-          {
-            "pattern": "react-native",
-            "patternOptions": {
-              "pattern": "react"
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@navigation/**",
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@config/**",
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@hooks/**",
-            "patternOptions": {
-              "pattern": "@config/**"
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@atoms/**",
-            "patternOptions": {
-              "pattern": "@molecules/**"
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@molecules/**",
-            "patternOptions": {
-              "pattern": "@organisms/**"
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@organisms/**",
-            "patternOptions": {
-              "pattern": "@templates/**"
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@templates/**",
-            "patternOptions": {
-              "pattern": "@screens/**"
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@screens/**",
-            "patternOptions": {
-              "pattern": "@templates/**"
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@stores/**",
-            "patternOptions": {
-              "pattern": "@utils/**"
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@utils/**",
-            "patternOptions": {
-              "pattern": "@stores/**"
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@styles/**",
-            "patternOptions": {
-              "pattern": "@utils/**"
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@enums/**",
-            "patternOptions": {
-              "pattern": ["@styles/**"]
-            },
-            "group": "external",
-            "position": "after"
-          },
-          {
-            "pattern": "@interfaces/**",
-            "patternOptions": {
-              "pattern": "@enums/**"
-            },
-            "group": "external",
-            "position": "after"
-          }
-        ],
-        "pathGroupsExcludedImportTypes": [
-          "react",
-          "react-native",
-          "@navigation/**",
-          "@config/**",
-          "@hooks/**",
-          "@atoms/**",
-          "@molecules/**",
-          "@organisms/**",
-          "@templates/**",
-          "@screens/**",
-          "@stores/**",
-          "@utils/**",
-          "@styles/**",
-          "@enums/**",
-          "@interfaces/**"
-        ],
-        "newlines-between": "ignore",
-        "alphabetize": { "order": "asc", "caseInsensitive": true },
-        "warnOnUnassignedImports": false
-      }
-    ],
     // easy autofixable import sorting with eslint-plugin-simple-import-sort
     "simple-import-sort/imports": "off",
     "simple-import-sort/exports": "warn",
-    "overrides": [
-      {
-        "files": "src/**.tsx",
-        "rules": {
-          "import/order": "off"
-        }
-      }
-    ]
+    "import/order": "off"
+    // "overrides": [
+    //   {
+    //     "files": "src/**.tsx",
+    //     "rules": {
+    //       "import/order": "off"
+    //     }
+    //   }
+    // ]
   }
 }

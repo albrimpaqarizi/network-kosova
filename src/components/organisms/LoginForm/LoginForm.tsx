@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { useForm } from 'react-hook-form';
-import { Button, FormControl, Link, VStack } from 'native-base';
-
 import { TextField } from '@atoms';
-import { LoginFormProps, LoginInputs } from './Login.types';
 import { useNavigation } from '@react-navigation/native';
+import { Button, FormControl, Link, VStack } from 'native-base';
+import { useForm } from 'react-hook-form';
+
+import { LoginFormProps, LoginInputs } from './Login.types';
 
 export const LoginForm = ({ handleOnSubmit }: LoginFormProps) => {
   const navigation = useNavigation();
@@ -36,7 +36,7 @@ export const LoginForm = ({ handleOnSubmit }: LoginFormProps) => {
           <TextField<LoginInputs>
             rounded="lg"
             placeholder="********"
-            secureTextEntry={true}
+            secureTextEntry
             control={{ control, name: 'password' }}
           />
         </FormControl>
@@ -47,6 +47,7 @@ export const LoginForm = ({ handleOnSubmit }: LoginFormProps) => {
         color="primary.600"
         alignSelf="flex-end"
         onPress={handleForgotPassword}
+        href="/"
       >
         Forgot Password?
       </Link>

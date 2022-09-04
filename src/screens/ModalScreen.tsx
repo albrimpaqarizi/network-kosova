@@ -1,6 +1,6 @@
-import { Box, View, Text } from 'native-base';
-import { StatusBar } from 'expo-status-bar';
 import * as React from 'react';
+import { StatusBar } from 'expo-status-bar';
+import { Box, View, Text } from 'native-base';
 import { Platform, StyleSheet } from 'react-native';
 
 export default function ModalScreen() {

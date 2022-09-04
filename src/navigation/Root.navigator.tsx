@@ -1,7 +1,11 @@
 import * as React from 'react';
+import { AntDesign, FontAwesome } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // screens
+import { Pressable } from 'native-base';
+import { Alert, StyleSheet } from 'react-native';
 import {
   ForgotPasswordScreen,
   LoadScreen,
@@ -15,10 +19,6 @@ import {
 } from '@screens/index';
 
 import { RootStackParamList, RootTabScreenProps } from './Navigation.types';
-import { useFocusEffect } from '@react-navigation/native';
-import { Alert, StyleSheet } from 'react-native';
-import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import { Pressable } from 'native-base';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
@@ -50,7 +50,7 @@ const RootNavigator = () => {
                 onPress={() => navigation.navigate('Modal')}
                 style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}
               >
-                <FontAwesome name="info-circle" size={25} style={{ marginRight: 15 }} />
+                <FontAwesome name="info-circle" size={25} />
               </Pressable>
             ),
             headerStyle: {
@@ -61,7 +61,7 @@ const RootNavigator = () => {
         <RootStack.Screen
           name="tag"
           component={TabTwoScreen}
-          options={({ navigation }: RootTabScreenProps<'tag'>) => ({
+          options={() => ({
             tabBarIcon: () => <AntDesign name="home" size={30} color="white" />,
             headerStyle: { backgroundColor: '#ca005e' },
           })}

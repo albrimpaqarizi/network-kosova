@@ -1,9 +1,9 @@
 import React from 'react';
+import { auth } from '@firebase/config';
 import { StatusBar } from 'expo-status-bar';
+import { onAuthStateChanged } from 'firebase/auth';
 import { NativeBaseProvider } from 'native-base';
 
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '@firebase/config';
 import Navigation from '@navigation/index';
 import useCachedResources from '@hooks/useCachedResources';
 import useColorScheme from '@hooks/useColorScheme';
@@ -20,7 +20,7 @@ export default function App() {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
+      const { uid } = user;
       console.log('🚀 ~ file: App.tsx ~ line 25 ~ onAuthStateChanged ~ uid', uid);
       // ...
     } else {

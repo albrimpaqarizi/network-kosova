@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { getStorageData, removeStorageData } from '@utils';
-import { useAuthStore } from '@store';
-import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@firebase/config';
+import { useAuthStore } from '@store';
+import { getStorageData, removeStorageData } from '@utils';
+import { onAuthStateChanged } from 'firebase/auth';
 
 export const useAuth = (): { loading: boolean } => {
   // local state
@@ -20,7 +20,7 @@ export const useAuth = (): { loading: boolean } => {
     if (user) {
       // User is signed in, see docs for a list of available properties
       // https://firebase.google.com/docs/reference/js/firebase.User
-      const uid = user.uid;
+      const { uid } = user;
       console.log('🚀 ~ file: App.tsx ~ line 25 ~ onAuthStateChanged ~ uid', uid);
       // ...
     } else {

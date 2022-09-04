@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { Button, VStack } from 'native-base';
 import { TextField } from '@atoms';
+import { Button, VStack } from 'native-base';
 import { useForm } from 'react-hook-form';
-import { joiResolver } from '@hookform/resolvers/joi';
 
 import { RegisterFormInputs } from './RegisterForm.types';
-import { RegisterFormSchema } from '@validations/Register.validator';
 
 export const RegisterForm = () => {
   const { control, handleSubmit } = useForm<RegisterFormInputs>({
@@ -37,7 +35,7 @@ export const RegisterForm = () => {
         <TextField<RegisterFormInputs>
           rounded="full"
           placeholder="********"
-          secureTextEntry={true}
+          secureTextEntry
           control={{ control, name: 'password' }}
         />
       </VStack>

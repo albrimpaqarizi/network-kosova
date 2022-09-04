@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Box, HStack, Spinner } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
+import { Box, HStack, Spinner } from 'native-base';
 
 const LoadScreen = () => {
   // hooks
@@ -8,10 +8,10 @@ const LoadScreen = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation?.navigate('welcome');
+      navigation.navigate('welcome');
     }, 1000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [navigation]);
 
   return (
     <Box flex={1} alignItems="center" justifyContent="center">

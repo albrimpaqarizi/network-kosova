@@ -1,15 +1,16 @@
 import * as React from 'react';
-import { Text, Button, Center, Heading, View } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { AuthTabParamList } from '@navigation/Navigation.types';
+import { Text, Button, Center, Heading, View } from 'native-base';
+import { RootStackParamList } from '@navigation/Navigation.types';
 
 const WelcomeScreen = () => {
   // hooks
   const navigation = useNavigation();
 
   // handlers
-  const handleRedirect = (path: keyof AuthTabParamList) => () => navigation.navigate(path);
+
+  const handleRedirect = (path: keyof RootStackParamList) => () => navigation?.navigate('home');
 
   return (
     <Center flex={1} p="4">

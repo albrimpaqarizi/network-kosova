@@ -1,5 +1,5 @@
-import { Text, View } from 'native-base';
 import * as React from 'react';
+import { Text, View } from 'native-base';
 import { StyleSheet } from 'react-native';
 
 export default function TabTwoScreen() {
