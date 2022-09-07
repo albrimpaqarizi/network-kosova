@@ -6,11 +6,9 @@ import { NativeBaseProvider } from 'native-base';
 
 import Navigation from '@navigation/index';
 import useCachedResources from '@hooks/useCachedResources';
-import useColorScheme from '@hooks/useColorScheme';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
 
   if (!isLoadingComplete) {
     return null;
@@ -31,7 +29,7 @@ export default function App() {
 
   return (
     <NativeBaseProvider>
-      <Navigation colorScheme={colorScheme} />
+      <Navigation />
       <StatusBar animated />
     </NativeBaseProvider>
   );

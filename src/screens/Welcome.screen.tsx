@@ -9,8 +9,7 @@ const WelcomeScreen = () => {
   const navigation = useNavigation();
 
   // handlers
-
-  const handleRedirect = (path: keyof RootStackParamList) => () => navigation?.navigate('home');
+  const handleRedirect = (path: keyof RootStackParamList) => () => navigation.navigate(path);
 
   return (
     <Center flex={1} p="4">
