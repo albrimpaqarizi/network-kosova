@@ -10,7 +10,6 @@ module.exports = function (api) {
           extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
           alias: {
             '@/*': './src/*',
-            '@firebase': './src/firebase',
             '@atoms': './src/components/atoms',
             '@molecules': './src/components/molecules',
             '@organisms': './src/components/organisms',
@@ -28,7 +27,6 @@ module.exports = function (api) {
           },
         },
       ],
-      'jest-hoist',
     ],
   };
 };

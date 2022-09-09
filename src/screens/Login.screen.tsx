@@ -4,7 +4,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Center, Text, Button, Heading, HStack, Spinner, View } from 'native-base';
 import { Alert, StyleSheet } from 'react-native';
 import { LoginForm, LoginInputs } from '@organisms';
-import { auth } from '@firebase/config';
+// import { auth } from '@config/index';
 import { useAuthStore } from '@store';
 
 const LoginScreen = () => {
@@ -15,39 +15,39 @@ const LoginScreen = () => {
   const { addAuthUser } = useAuthStore();
 
   // handlers
-  useFocusEffect(
-    React.useCallback(() => {
-      const user = auth.currentUser;
-      if (user) navigation.navigate('home');
-      return () => {
-        Alert.alert('Root Screen was unfocused');
-      };
-    }, [navigation])
-  );
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     // const user = auth.currentUser;
+  //     if (user) navigation.navigate('home');
+  //     return () => {
+  //       Alert.alert('Root Screen was unfocused');
+  //     };
+  //   }, [navigation])
+  // );
 
   const handleOnSubmit = ({ email, password }: LoginInputs) => {
     setLoading(true);
-    signInWithEmailAndPassword(auth, email.trim(), password.trim())
-      .then(({ user }) => {
-        addAuthUser(
-          {
-            email: user.email || '',
-            emailVerified: user.emailVerified,
-            fullName: user.displayName || '',
-            isAnonymous: false,
-            phoneNumber: user.phoneNumber || '',
-            photoURL: user.photoURL || '',
-          },
-          true,
-          false
-        );
-        navigation.navigate('home');
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log('error', error);
-      });
+    // signInWithEmailAndPassword(auth, email.trim(), password.trim())
+    //   .then(({ user }) => {
+    //     addAuthUser(
+    //       {
+    //         email: user.email || '',
+    //         emailVerified: user.emailVerified,
+    //         fullName: user.displayName || '',
+    //         isAnonymous: false,
+    //         phoneNumber: user.phoneNumber || '',
+    //         photoURL: user.photoURL || '',
+    //       },
+    //       true,
+    //       false
+    //     );
+    //     navigation.navigate('home');
+    //     setLoading(false);
+    //   })
+    //   .catch((error) => {
+    //     setLoading(false);
+    //     console.log('error', error);
+    //   });
   };
 
   return (

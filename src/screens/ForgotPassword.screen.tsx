@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Center, Heading, HStack, Spinner, View } from 'native-base';
-import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '@firebase/config';
+import { sendPasswordResetEmail, getAuth } from 'firebase/auth';
+import { app } from '@config/index';
 import { ForgotPasswordForm, ForgotPasswordInputs } from '@organisms';
 
 const ForgotPasswordScreen = () => {
@@ -14,6 +14,8 @@ const ForgotPasswordScreen = () => {
 
   // handlers
   const handleOnSubmit = ({ email }: ForgotPasswordInputs) => {
+    const auth = getAuth(app);
+
     setLoading(true);
     sendPasswordResetEmail(auth, email.trim())
       .then((response) => {

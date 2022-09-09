@@ -19,27 +19,29 @@ import {
 } from '@screens/index';
 
 import { RootStackParamList, RootTabScreenProps } from './Navigation.types';
+import HomeStackNavigator from './Home.navigator';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 const RootNavigator = () => {
-  useFocusEffect(
-    React.useCallback(() => {
-      Alert.alert('Root Screen was focused');
-      // Do something when the screen is focused
-      return () => {
-        Alert.alert('Root Screen was unfocused');
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     Alert.alert('Root Screen was focused');
+  //     // Do something when the screen is focused
+  //     return () => {
+  //       Alert.alert('Root Screen was unfocused');
 
-        // Do something when the screen is unfocused
-        // Useful for cleanup functions
-      };
-    }, [])
-  );
+  //       // Do something when the screen is unfocused
+  //       // Useful for cleanup functions
+  //     };
+  //   }, [])
+  // );
 
   return (
     <RootStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="load">
       <RootStack.Screen name="load" component={LoadScreen} />
-      <RootStack.Group screenOptions={{ headerStyle: styles.headerStyle }}>
+      <RootStack.Screen name="home" component={HomeStackNavigator} />
+      {/* <RootStack.Group screenOptions={{ headerStyle: styles.headerStyle }}>
         <RootStack.Screen
           name="home"
           component={TabOneScreen}
@@ -66,7 +68,7 @@ const RootNavigator = () => {
             headerStyle: { backgroundColor: '#ca005e' },
           })}
         />
-      </RootStack.Group>
+      </RootStack.Group> */}
 
       <RootStack.Group screenOptions={{ headerStyle: styles.headerStyle }}>
         <RootStack.Screen name="welcome" component={WelcomeScreen} />

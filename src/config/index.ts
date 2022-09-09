@@ -1,3 +1,1 @@
-// imports
-
-// exports
+export * from './firebaseApp';
