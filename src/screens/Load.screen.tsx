@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Box, HStack, Spinner } from 'native-base';
+import { Loading } from '@atoms';
 
 const LoadScreen = () => {
   // hooks
@@ -13,13 +13,7 @@ const LoadScreen = () => {
     return () => clearTimeout(timer);
   }, [navigation]);
 
-  return (
-    <Box flex={1} alignItems="center" justifyContent="center">
-      <HStack space={8} justifyContent="center">
-        <Spinner size="lg" />
-      </HStack>
-    </Box>
-  );
+  return <Loading />;
 };
 
 export default LoadScreen;

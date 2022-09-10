@@ -1,23 +1,34 @@
-// import 'source-map-support/register'
-
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { NativeBaseProvider } from 'native-base';
 
 import Navigation from '@navigation/index';
 import useCachedResources from '@hooks/useCachedResources';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NativeBaseProvider } from 'native-base';
+import { Loading } from '@atoms';
 
-export default function App() {
+const App = () => {
   const isLoadingComplete = useCachedResources();
 
+  console.log('isLoadingComplete', isLoadingComplete);
+
   if (!isLoadingComplete) {
-    return null;
+    return (
+      <SafeAreaProvider>
+        <NativeBaseProvider>
+          <Loading />
+        </NativeBaseProvider>
+      </SafeAreaProvider>
+    );
   }
 
   return (
-    <NativeBaseProvider>
-      <Navigation />
-      <StatusBar animated />
-    </NativeBaseProvider>
+    <SafeAreaProvider>
+      <NativeBaseProvider>
+        <Navigation />
+        <StatusBar />
+      </NativeBaseProvider>
+    </SafeAreaProvider>
   );
-}
+};
+export default App;

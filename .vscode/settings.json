@@ -1,52 +1,82 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  },
-  "terminal.integrated.allowMnemonics": true,
-  "terminal.integrated.copyOnSelection": true,
-  "workbench.iconTheme": "vscode-icons",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[typescriptreact]": {
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "workbench.iconTheme": "vscode-icons",
+    "editor.multiCursorModifier": "ctrlCmd",
+    "workbench.startupEditor": "welcomePage",
+    "git.confirmSync": false,
+    "gitlens.views.repositories.files.layout": "tree",
     "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "gitlens.advanced.messages": {
+        "suppressGitMissingWarning": true
+    },
+    "terminal.integrated.allowMnemonics": true,
+    "terminal.integrated.copyOnSelection": true,
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.formatOnPaste": true
+    },
+    "terminal.integrated.defaultProfile.windows": "Git Bash",
+    "terminal.integrated.fontFamily": "Fira Code Retina, monospace",
+    "terminal.integrated.fontSize": 12,
+    "editor.fontFamily": "Fira Code Retina, monospace",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 12,
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
     "editor.formatOnSave": true,
-    "editor.formatOnPaste": true
-  },
-  "terminal.integrated.fontFamily": "monospace",
-  "editor.fontWeight": "normal",
-  "editor.fontFamily": "'Monaco', Consolas, 'Courier New', monospace ",
-  "editor.fontSize": 13,
-  "git.autofetch": true,
-  "git.enableSmartCommit": true,
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true,
-  "editor.cursorBlinking": "solid",
-  "editor.fontLigatures": false,
-  "eslint.codeAction.showDocumentation": {
-    "enable": true
-  },
-  "redhat.telemetry.enabled": true,
-  "gitlens.gitCommands.skipConfirmations": [
-    "fetch:command",
-    "stash-push:command",
-    "switch:command",
-    "push:command"
-  ],
-  "window.zoomLevel": 0,
-  "docker.commands.attach": [null],
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[scss]": {
-    "editor.suggest.insertMode": "replace",
-    "gitlens.codeLens.scopes": ["document"]
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "turboConsoleLog.quote": "'",
-  "turboConsoleLog.addSemicolonInTheEnd": true,
-  "gitlens.views.branches.branches.layout": "list"
+    "editor.formatOnPaste": true,
+    "editor.cursorBlinking": "solid",
+    "gitlens.gitCommands.skipConfirmations": [
+        "fetch:command",
+        "stash-push:command",
+        "switch:command",
+        "push:command"
+    ],
+    "css.lint.unknownAtRules": "ignore",
+    "scss.lint.unknownAtRules": "ignore",
+    "tailwindCSS.includeLanguages": {
+        "css.lint.unknownAtRules": "ignore",
+        "scss.lint.unknownAtRules": "ignore"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.suggest.insertMode": "replace",
+        "gitlens.codeLens.scopes": ["document"]
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "turboConsoleLog.quote": "'",
+    "turboConsoleLog.addSemicolonInTheEnd": true,
+    "gitlens.views.branches.branches.layout": "list",
+    "typescript.updateImportsOnFileMove.enabled": "never",
+    "editor.linkedEditing": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "files.associations": {
+        "*.graphql": "graphql"
+    },
+    "eslint.alwaysShowStatus": true,
+    "better-comments.highlightPlainText": true,
+    "redhat.telemetry.enabled": true,
+    "editor.minimap.maxColumn": 100,
+    "git.ignoreRebaseWarning": true,
+    "tabnine.experimentalAutoImports": true,
+    "prettier.printWidth": 100,
+    "prettier.tabWidth": 4,
+    "prettier.trailingComma": "all",
+    "genymotion.virtualBox.installedPath": "c:\\Program Files\\Oracle\\VirtualBox",
+    "genymotion.genymotion.installedPath": "c:\\Program Files\\Genymobile\\Genymotion",
+    "editor.codeActionsOnSave": {
+        "source.fixAll": false
+    }
 }

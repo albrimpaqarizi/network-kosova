@@ -1,17 +1,17 @@
 {
   "extends": "expo/tsconfig.base",
-  "display": "React Native",
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-native",
-    "lib": ["ES2017"],
+    "lib": ["es2017"],
     "moduleResolution": "node",
     "noEmit": true,
+    "module": "es2020",
     "strict": true,
-    "target": "ES2017",
+    "target": "esnext",
     "baseUrl": ".",
     "paths": {
       "@atoms": ["src/components/atoms/index"],
@@ -30,5 +30,5 @@
       "@validations/*": ["src/validations/*"]
     }
   },
-  "exclude": ["babel.config.js"]
+  "exclude": ["node_modules", "babel.config.js"]
 }

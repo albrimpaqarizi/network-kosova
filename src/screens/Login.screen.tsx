@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { Center, Text, Button, Heading, HStack, Spinner, View } from 'native-base';
-import { Alert, StyleSheet } from 'react-native';
+import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { StyleSheet } from 'react-native';
 import { LoginForm, LoginInputs } from '@organisms';
-// import { auth } from '@config/index';
+import { app } from '@config/index';
 import { useAuthStore } from '@store';
+import { Button, Center, Heading, HStack, Spinner, Text, View } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -25,32 +25,40 @@ const LoginScreen = () => {
   //   }, [navigation])
   // );
 
+  const auth = getAuth(app);
+
+  console.log('auth', auth);
+
   const handleOnSubmit = ({ email, password }: LoginInputs) => {
     setLoading(true);
-    // signInWithEmailAndPassword(auth, email.trim(), password.trim())
-    //   .then(({ user }) => {
-    //     addAuthUser(
-    //       {
-    //         email: user.email || '',
-    //         emailVerified: user.emailVerified,
-    //         fullName: user.displayName || '',
-    //         isAnonymous: false,
-    //         phoneNumber: user.phoneNumber || '',
-    //         photoURL: user.photoURL || '',
-    //       },
-    //       true,
-    //       false
-    //     );
-    //     navigation.navigate('home');
-    //     setLoading(false);
-    //   })
-    //   .catch((error) => {
-    //     setLoading(false);
-    //     console.log('error', error);
-    //   });
+
+    signInWithEmailAndPassword(auth, email.trim(), password.trim())
+      .then(({ user }) => {
+        addAuthUser(
+          {
+            email: user.email || '',
+            emailVerified: user.emailVerified,
+            fullName: user.displayName || '',
+            isAnonymous: false,
+            phoneNumber: user.phoneNumber || '',
+            photoURL: user.photoURL || '',
+          },
+          true,
+          false
+        );
+        navigation.navigate('home');
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        console.log('error', error);
+      });
   };
 
   return (
+    // <View>
+    //   <Text>login</Text>
+    // </View>
     <Center flex={1} p="8">
       <View
         flex={1}
