@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Center, Heading, HStack, NativeBaseProvider, Spinner, View } from 'native-base';
+import { Center, Heading, HStack, Spinner, View } from 'native-base';
 import { sendPasswordResetEmail, getAuth } from 'firebase/auth';
 import { app } from '@config/index';
 import { ForgotPasswordForm, ForgotPasswordInputs } from '@organisms';
@@ -21,7 +21,9 @@ const ForgotPasswordScreen = () => {
       .then((response) => {
         // Password reset email sent!
         console.log('response', response);
-        navigation.navigate('login');
+        navigation.navigate('home', {
+          screen: 'home',
+        });
         setLoading(false);
       })
       .catch((error) => {
@@ -31,27 +33,25 @@ const ForgotPasswordScreen = () => {
   };
 
   return (
-    <NativeBaseProvider>
-      <Center flex={1} p="8">
-        <View
-          flex={1}
-          width="100%"
-          justifyContent="center"
-          alignItems="center"
-          style={loading && styles.hidden}
-        >
-          <Heading size="2xl" mb="10" color="primary.600">
-            Reset password
-          </Heading>
+    <Center flex={1} p="8">
+      <View
+        flex={1}
+        width="100%"
+        justifyContent="center"
+        alignItems="center"
+        style={loading && styles.hidden}
+      >
+        <Heading size="2xl" mb="10" color="primary.600">
+          Reset password
+        </Heading>
 
-          <ForgotPasswordForm handleOnSubmit={handleOnSubmit} />
-        </View>
+        <ForgotPasswordForm handleOnSubmit={handleOnSubmit} />
+      </View>
 
-        <HStack space={8} justifyContent="center" style={!loading && styles.hidden}>
-          <Spinner size="lg" />
-        </HStack>
-      </Center>
-    </NativeBaseProvider>
+      <HStack space={8} justifyContent="center" style={!loading && styles.hidden}>
+        <Spinner size="lg" />
+      </HStack>
+    </Center>
   );
 };
 

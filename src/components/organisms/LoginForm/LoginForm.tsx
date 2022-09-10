@@ -9,11 +9,7 @@ import { LoginFormProps, LoginInputs } from './Login.types';
 export const LoginForm = ({ handleOnSubmit }: LoginFormProps) => {
   const navigation = useNavigation();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginInputs>({
+  const { control, handleSubmit } = useForm<LoginInputs>({
     // resolver: joiResolver(LoginFormSchema),
   });
 

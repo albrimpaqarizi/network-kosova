@@ -13,14 +13,14 @@ export const Loader = ({ loading, children, fallback, time = 300 }: LoadDataProp
   }, [loading, time]);
 
   if (isLoading) {
-    return fallback ? (
-      fallback
-    ) : (
-      <Box flex={1} alignItems="center" justifyContent="center">
-        <HStack space={8} justifyContent="center">
-          <Spinner size="lg" />
-        </HStack>
-      </Box>
+    return (
+      fallback || (
+        <Box flex={1} alignItems="center" justifyContent="center">
+          <HStack space={8} justifyContent="center">
+            <Spinner size="lg" />
+          </HStack>
+        </Box>
+      )
     );
   }
 

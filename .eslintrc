@@ -1,7 +1,6 @@
 {
   "env": {
     "browser": true,
-    "es2022": true,
     "react-native/react-native": true
   },
   "extends": [
@@ -31,26 +30,23 @@
     "@typescript-eslint",
     "prettier",
     "react-native",
-    "module-resolver",
     "simple-import-sort",
     "import"
   ],
   "settings": {
     "react-native/style-sheet-object-names": ["EStyleSheet", "OtherStyleSheet", "PStyleSheet"],
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
     "import/resolver": {
       "typescript": {
-        "project": "."
+        "alwaysTryTypes": true, // always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`
+
+        // Choose from one of the "project" configs below or omit to use <root>/tsconfig.json by default
+
+        // use <root>/path/to/folder/tsconfig.json
+        "project": ["./tsconfig.json"]
       }
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     }
   },
   "rules": {
@@ -68,15 +64,6 @@
       "warn",
       "asc",
       { "ignoreClassNames": true, "ignoreStyleProperties": false }
-    ],
-    // Alias paths ESLint
-    "module-resolver/use-alias": [
-      "error",
-      {
-        "ignoreDepth": 2,
-        "allowDepthMoreOrLessThanEquality": false,
-        "extensions": [".ts", ".tsx", ".jsx"]
-      }
     ],
     //
     //  ESLINT RULES
@@ -145,9 +132,9 @@
     //
     "prettier/prettier": [
       "warn",
+      {},
       {
-        "singleQuote": true,
-        "parser": "flow"
+        "usePrettierrc": true
       }
     ],
     //

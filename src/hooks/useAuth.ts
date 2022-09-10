@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { auth } from '@fbase/config';
+import { app } from '@config/firebaseApp';
 import { useAuthStore } from '@store';
 import { getStorageData, removeStorageData } from '@utils';
 import { onAuthStateChanged } from 'firebase/auth';
