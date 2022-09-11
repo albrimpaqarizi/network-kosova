@@ -12,7 +12,6 @@ declare global {
 
 export type RootStackParamList = {
   home: NavigatorScreenParams<RootTabParamList> | undefined;
-  tag: undefined;
   welcome: undefined;
   login: undefined;
   register: undefined;
@@ -25,6 +24,8 @@ export type RootStackParamList = {
 export type RootTabParamList = {
   home: undefined;
   tag: undefined;
+  chat: undefined;
+  post: undefined;
 };
 
 // eslint-disable-next-line prettier/prettier

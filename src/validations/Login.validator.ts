@@ -1,10 +1,9 @@
-import Joi from 'joi';
+import zod from 'zod';
 
-export const LoginFormSchema = Joi.object({
-  email: Joi.string()
-    .email({ tlds: { allow: false } })
-    .required()
-    .trim()
-    .label('Email'),
-  password: Joi.string().required().min(8).label('Password'),
+export const LoginFormSchema = zod.object({
+  email: zod
+    .string({ required_error: 'Email is required', invalid_type_error: 'Email must be a string' })
+    .email(),
+  password: zod.string({ required_error: 'Password is required' }),
+  // .regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/),
 });

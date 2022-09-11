@@ -1,6 +1,7 @@
 import { IInputProps } from 'native-base';
-import { UseControllerProps } from 'react-hook-form';
+import { UseControllerProps, FieldValues } from 'react-hook-form';
 
-export interface InputProps<TFieldValues> extends IInputProps {
+export interface InputProps<TFieldValues extends FieldValues> extends IInputProps {
   control: UseControllerProps<TFieldValues>;
+  label?: string;
 }

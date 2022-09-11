@@ -2,12 +2,13 @@ import * as React from 'react';
 import { TextField } from '@atoms';
 import { Button, VStack } from 'native-base';
 import { useForm } from 'react-hook-form';
-
+import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterFormInputs } from './RegisterForm.types';
+import { RegisterFormSchema } from '@validations/Register.validator';
 
 export const RegisterForm = () => {
   const { control, handleSubmit } = useForm<RegisterFormInputs>({
-    // resolver: joiResolver(RegisterFormSchema),
+    resolver: zodResolver(RegisterFormSchema),
   });
 
   // handlers

@@ -5,19 +5,23 @@ import LoginScreen from './Login.screen';
 import ModalScreen from './ModalScreen';
 import NotFoundScreen from './NotFound.screen';
 import RegisterScreen from './Register.screen';
-import TabOneScreen from './TabOneScreen';
-import TabTwoScreen from './TabTwoScreen';
 import WelcomeScreen from './Welcome.screen';
+import ChatScreen from './Chat.screen';
+import ProfileScreen from './Profile.screen';
+import HomeScreen from './Home.screen';
+import PostScreen from './Post.screen';
 
 // exports
 export {
+  ChatScreen,
   ForgotPasswordScreen,
+  HomeScreen,
   LoadScreen,
   LoginScreen,
   ModalScreen,
   NotFoundScreen,
+  PostScreen,
+  ProfileScreen,
   RegisterScreen,
-  TabOneScreen,
-  TabTwoScreen,
   WelcomeScreen,
 };

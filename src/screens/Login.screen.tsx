@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { StyleSheet } from 'react-native';
 import { LoginForm, LoginInputs } from '@organisms';
-import { app } from '@config/index';
+import { auth } from '@config/index';
 import { useAuthStore } from '@store';
 import { Button, Center, Heading, HStack, Spinner, Text, View } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
@@ -14,25 +14,10 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const { addAuthUser } = useAuthStore();
 
-  // handlers
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     // const user = auth.currentUser;
-  //     if (user) navigation.navigate('home');
-  //     return () => {
-  //       Alert.alert('Root Screen was unfocused');
-  //     };
-  //   }, [navigation])
-  // );
-
-  const auth = getAuth(app);
-
-  console.log('auth', auth);
-
   const handleOnSubmit = ({ email, password }: LoginInputs) => {
     setLoading(true);
 
-    signInWithEmailAndPassword(auth, email.trim(), password.trim())
+    signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         addAuthUser(
           {
@@ -56,9 +41,6 @@ const LoginScreen = () => {
   };
 
   return (
-    // <View>
-    //   <Text>login</Text>
-    // </View>
     <Center flex={1} p="8">
       <View
         flex={1}

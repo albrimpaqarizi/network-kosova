@@ -1,9 +1,7 @@
-import Joi from 'joi';
+import zod from 'zod';
 
-export const ForgotPasswordFormSchema = Joi.object({
-  email: Joi.string()
-    .email({ tlds: { allow: false } })
-    .trim()
-    .required()
-    .label('Email'),
+export const ForgotPasswordFormSchema = zod.object({
+  email: zod
+    .string({ required_error: 'Email is required', invalid_type_error: 'Email must be a string' })
+    .email(),
 });

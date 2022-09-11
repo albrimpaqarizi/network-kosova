@@ -1,50 +1,48 @@
-import { useCallback, useEffect, useState } from 'react';
-
-import { app } from '@config/firebaseApp';
-import { useAuthStore } from '@store';
-import { getStorageData, removeStorageData } from '@utils';
+import { useCallback, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@config/firebaseApp';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useAuthStore } from '@store';
 
-export const useAuth = (): { loading: boolean } => {
+export const useAuth = (): boolean => {
   // local state
   const [loading, setLoading] = useState<boolean>(true);
 
   // hooks
+  const navigation = useNavigation();
+  const { addAuthUser } = useAuthStore();
 
-  const { removeAuth } = useAuthStore();
+  useFocusEffect(
+    useCallback(() => {
+      onAuthStateChanged(auth, (user) => {
+        setLoading(true);
+        if (user) {
+          console.log('🚀 ~ onAuthStateChanged ~ uid', user.email);
+          addAuthUser(
+            {
+              email: user.email || '',
+              emailVerified: user.emailVerified,
+              fullName: user.displayName || '',
+              isAnonymous: false,
+              phoneNumber: user.phoneNumber || '',
+              photoURL: user.photoURL || '',
+            },
+            true,
+            false
+          );
 
-  // consts
-  const token = getStorageData('token') || '';
+          navigation.navigate('home');
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      const { uid } = user;
-      console.log('🚀 ~ file: App.tsx ~ line 25 ~ onAuthStateChanged ~ uid', uid);
-      // ...
-    } else {
-      // User is signed out
-      console.log('🚀 ~ file: App.tsx ~ line 32 ~ onAuthStateChanged ~  // User is signed out');
-    }
-  });
+          // ...
+        } else {
+          // User is signed out
+          console.log('🚀 ~  onAuthStateChanged ~  // User is signed out');
+          navigation.navigate('welcome');
+        }
+        setLoading(false);
+      });
+    }, [addAuthUser, navigation])
+  );
 
-  // handlers
-  //   const handleGetUserById = useCallback(() => {
-  //     refetch();
-  //     setLoading(false);
-  //   }, [refetch]);
-
-  //   // effect
-  //   useEffect(() => {
-  //     if (validateAuthToken(token)) {
-  //       handleGetUserById();
-  //     } else {
-  //       removeStorageData('token');
-  //       removeAuth();
-  //       setLoading(false);
-  //     }
-  //   }, [handleGetUserById, removeAuth, token]);
-
-  return { loading };
+  return loading;
 };

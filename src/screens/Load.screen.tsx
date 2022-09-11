@@ -1,17 +1,10 @@
-import React, { useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React from 'react';
 import { Loading } from '@atoms';
+import { useAuth } from '@hooks/useAuth';
 
 const LoadScreen = () => {
   // hooks
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.navigate('welcome');
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [navigation]);
+  useAuth();
 
   return <Loading />;
 };

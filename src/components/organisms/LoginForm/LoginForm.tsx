@@ -1,16 +1,19 @@
 import * as React from 'react';
 import { TextField } from '@atoms';
 import { useNavigation } from '@react-navigation/native';
-import { Button, FormControl, Link, VStack } from 'native-base';
+import { Button, Link, VStack } from 'native-base';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import { LoginFormProps, LoginInputs } from './Login.types';
+import { LoginFormSchema } from '@validations/Login.validator';
 
 export const LoginForm = ({ handleOnSubmit }: LoginFormProps) => {
   const navigation = useNavigation();
 
   const { control, handleSubmit } = useForm<LoginInputs>({
-    // resolver: joiResolver(LoginFormSchema),
+    mode: 'onSubmit',
+    resolver: zodResolver(LoginFormSchema),
   });
 
   const handleForgotPassword = () => navigation.navigate('forgot');
@@ -18,24 +21,18 @@ export const LoginForm = ({ handleOnSubmit }: LoginFormProps) => {
   return (
     <>
       <VStack space={4} alignItems="center">
-        <FormControl>
-          <FormControl.Label>Email</FormControl.Label>
-          <TextField<LoginInputs>
-            rounded="lg"
-            placeholder="example@gmail.com"
-            control={{ control, name: 'email' }}
-          />
-        </FormControl>
+        <TextField<LoginInputs>
+          label="email"
+          placeholder="example@gmail.com"
+          control={{ control, name: 'email' }}
+        />
 
-        <FormControl>
-          <FormControl.Label>Password</FormControl.Label>
-          <TextField<LoginInputs>
-            rounded="lg"
-            placeholder="********"
-            secureTextEntry
-            control={{ control, name: 'password' }}
-          />
-        </FormControl>
+        <TextField<LoginInputs>
+          label="password"
+          placeholder="********"
+          secureTextEntry
+          control={{ control, name: 'password' }}
+        />
       </VStack>
       <Link
         isUnderlined

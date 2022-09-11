@@ -1,27 +1,34 @@
 import React from 'react';
-import { Input } from 'native-base';
+import { FormControl, Input } from 'native-base';
 import { FieldValues, useController } from 'react-hook-form';
 import { InputProps } from './TextField.types';
 
-// eslint-disable-next-line prettier/prettier
 export const TextField = <TFieldValues extends FieldValues = FieldValues>({
+  label,
   control,
   px = '4',
   w = '100%',
   fontSize = 'sm',
-  // eslint-disable-next-line prettier/prettier
+  rounded = 'lg',
   ...rest
 }: InputProps<TFieldValues>) => {
-  const { field } = useController(control);
+  const { field, fieldState } = useController(control);
 
   return (
-    <Input
-      w={w}
-      px={px}
-      fontSize={fontSize}
-      value={field.value}
-      onChangeText={field.onChange}
-      {...rest}
-    />
+    <FormControl isInvalid={!!fieldState.error}>
+      <FormControl.Label>{label}</FormControl.Label>
+      <Input
+        w={w}
+        px={px}
+        rounded={rounded}
+        fontSize={fontSize}
+        value={field.value}
+        nativeID={field.name}
+        onChangeText={field.onChange}
+        {...rest}
+      />
+
+      <FormControl.ErrorMessage>{fieldState?.error?.message}</FormControl.ErrorMessage>
+    </FormControl>
   );
 };
