@@ -1,27 +1,22 @@
 import * as React from 'react';
+import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // screens
 import {
   ForgotPasswordScreen,
-  LoadScreen,
   LoginScreen,
-  ModalScreen,
   NotFoundScreen,
   RegisterScreen,
   WelcomeScreen,
 } from '@screens/index';
 
-import { RootStackParamList } from './Navigation.types';
-import { StyleSheet } from 'react-native';
-import HomeStackNavigator from './Home.navigator';
+import { AuthParamList } from './Navigation.types';
 
-const RootStack = createNativeStackNavigator<RootStackParamList>();
+const RootStack = createNativeStackNavigator<AuthParamList>();
 
 const RootNavigator = () => (
-  <RootStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="load">
-    <RootStack.Screen name="load" component={LoadScreen} />
-    <RootStack.Screen name="home" component={HomeStackNavigator} />
+  <RootStack.Navigator screenOptions={{ headerShown: false }} initialRouteName="welcome">
     <RootStack.Group screenOptions={{ headerStyle: styles.headerStyle }}>
       <RootStack.Screen name="welcome" component={WelcomeScreen} />
       <RootStack.Screen name="login" component={LoginScreen} />
@@ -29,10 +24,10 @@ const RootNavigator = () => (
       <RootStack.Screen name="forgot" component={ForgotPasswordScreen} />
     </RootStack.Group>
 
-    <RootStack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-    <RootStack.Group screenOptions={{ presentation: 'modal' }}>
+    <RootStack.Screen name="notFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
+    {/* <RootStack.Group screenOptions={{ presentation: 'modal' }}>
       <RootStack.Screen name="Modal" component={ModalScreen} />
-    </RootStack.Group>
+    </RootStack.Group> */}
   </RootStack.Navigator>
 );
 

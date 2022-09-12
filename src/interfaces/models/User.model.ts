@@ -5,5 +5,5 @@ export interface AuthUserModel {
   email: string;
   photoURL: string;
   phoneNumber: string;
-  role?: string;
+  uid: string;
 }

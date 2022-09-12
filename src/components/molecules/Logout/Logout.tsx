@@ -2,7 +2,8 @@ import React from 'react';
 import { auth } from '@config/firebaseApp';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useAuthStore } from '@store';
-import { IconButton } from 'native-base';
+import { IconButton, View } from 'native-base';
+import { Button } from 'react-native';
 
 export const Logout = () => {
   const { removeAuth } = useAuthStore();
@@ -16,5 +17,9 @@ export const Logout = () => {
       });
   };
 
-  return <IconButton icon={<MaterialIcons name="logout" size={24} />} onPress={handleLogout} />;
+  return (
+    <View>
+      <MaterialIcons onPress={handleLogout} name="logout" size={24} />
+    </View>
+  );
 };

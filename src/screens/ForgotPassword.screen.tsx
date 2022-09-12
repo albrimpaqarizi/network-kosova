@@ -41,7 +41,7 @@ const ForgotPasswordScreen = () => {
         alignItems="center"
         style={loading && styles.hidden}
       >
-        <Heading size="2xl" mb="10" color="primary.600">
+        <Heading size="2xl" mb="10">
           Reset password
         </Heading>
 

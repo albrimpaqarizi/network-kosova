@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { TextField } from '@atoms';
-import { Button, VStack } from 'native-base';
+import { Button, Center, HStack, VStack } from 'native-base';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { RegisterFormInputs } from './RegisterForm.types';
@@ -17,31 +17,37 @@ export const RegisterForm = () => {
   return (
     <>
       <VStack space={4} mb="10" alignItems="center">
+        <HStack space={2} justifyContent="space-around" w="100%">
+          <Center w="48%">
+            <TextField<RegisterFormInputs>
+              label="First name"
+              placeholder="John"
+              control={{ control, name: 'firstName' }}
+            />
+          </Center>
+          <Center w="48%">
+            <TextField<RegisterFormInputs>
+              label="Last name"
+              placeholder="Doe"
+              control={{ control, name: 'lastName' }}
+            />
+          </Center>
+        </HStack>
+
         <TextField<RegisterFormInputs>
-          rounded="full"
-          placeholder="John"
-          control={{ control, name: 'firstName' }}
-        />
-        <TextField<RegisterFormInputs>
-          rounded="full"
-          placeholder="Doe"
-          control={{ control, name: 'lastName' }}
-        />
-        <TextField<RegisterFormInputs>
-          rounded="full"
+          label="Email"
           placeholder="example@gmail.com"
           control={{ control, name: 'email' }}
         />
-
         <TextField<RegisterFormInputs>
-          rounded="full"
+          label="Password"
           placeholder="********"
           secureTextEntry
           control={{ control, name: 'password' }}
         />
       </VStack>
 
-      <Button width="full" rounded="full" onPress={handleSubmit(handleOnSubmit)}>
+      <Button width="full" rounded="lg" onPress={handleSubmit(handleOnSubmit)}>
         Sign Up
       </Button>
     </>

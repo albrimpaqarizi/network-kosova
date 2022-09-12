@@ -1,14 +1,13 @@
 import * as React from 'react';
+import { View } from 'native-base';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-// screens
-import { HomeScreen, ChatScreen, ProfileScreen, PostScreen } from '@screens/index';
-import { RootTabParamList } from './Navigation.types';
-import { IconButton } from 'native-base';
 import { FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons';
+
+import { HomeScreen, ChatScreen, ProfileScreen, PostScreen } from '@screens/index';
+import { HomeParamList } from './Navigation.types';
 import { Logout } from '@molecules';
 
-const HomeStack = createBottomTabNavigator<RootTabParamList>();
+const HomeStack = createBottomTabNavigator<HomeParamList>();
 
 const HomeStackNavigator = () => (
   <HomeStack.Navigator
@@ -18,10 +17,9 @@ const HomeStackNavigator = () => (
       tabBarShowLabel: false,
       tabBarActiveTintColor: '#ff6600',
       headerLeft: () => (
-        <IconButton
-          icon={<Ionicons name="chevron-back" size={24} />}
-          onPress={() => navigation.goBack}
-        />
+        <View>
+          <Ionicons name="chevron-back" size={24} onPress={() => navigation.goBack} />
+        </View>
       ),
       headerRight: () => <Logout />,
     })}
@@ -53,7 +51,7 @@ const HomeStackNavigator = () => (
       })}
     />
     <HomeStack.Screen
-      name="tag"
+      name="profile"
       component={ProfileScreen}
       options={() => ({
         title: 'Profile',

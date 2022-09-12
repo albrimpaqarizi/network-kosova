@@ -22,26 +22,19 @@ export const LoginForm = ({ handleOnSubmit }: LoginFormProps) => {
     <>
       <VStack space={4} alignItems="center">
         <TextField<LoginInputs>
-          label="email"
+          label="Email"
           placeholder="example@gmail.com"
           control={{ control, name: 'email' }}
         />
 
         <TextField<LoginInputs>
-          label="password"
+          label="Password"
           placeholder="********"
           secureTextEntry
           control={{ control, name: 'password' }}
         />
       </VStack>
-      <Link
-        isUnderlined
-        mb="3"
-        color="primary.600"
-        alignSelf="flex-end"
-        onPress={handleForgotPassword}
-        href="/"
-      >
+      <Link isUnderlined mb="3" alignSelf="flex-end" onPress={handleForgotPassword} href="/">
         Forgot Password?
       </Link>
 

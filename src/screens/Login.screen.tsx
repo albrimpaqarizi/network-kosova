@@ -4,14 +4,13 @@ import { StyleSheet } from 'react-native';
 import { LoginForm, LoginInputs } from '@organisms';
 import { auth } from '@config/index';
 import { useAuthStore } from '@store';
-import { Button, Center, Heading, HStack, Spinner, Text, View } from 'native-base';
-import { useNavigation } from '@react-navigation/native';
+import { Alert, Button, Center, Heading, HStack, Spinner, Text, useToast, View } from 'native-base';
 
 const LoginScreen = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   // hooks
-  const navigation = useNavigation();
+  const toast = useToast();
   const { addAuthUser } = useAuthStore();
 
   const handleOnSubmit = ({ email, password }: LoginInputs) => {
@@ -27,17 +26,24 @@ const LoginScreen = () => {
             isAnonymous: false,
             phoneNumber: user.phoneNumber || '',
             photoURL: user.photoURL || '',
+            uid: user.uid || '',
           },
           true,
           false
         );
-        navigation.navigate('home');
-        setLoading(false);
       })
       .catch((error) => {
-        setLoading(false);
         console.log('error', error);
+        toast.show({
+          render: () => (
+            <HStack space={2} justifyContent="center" alignItems="center">
+              <Alert.Icon color="red.500" />
+              <Text color="red.500">{error}</Text>
+            </HStack>
+          ),
+        });
       });
+    setLoading(false);
   };
 
   return (
@@ -49,11 +55,12 @@ const LoginScreen = () => {
         alignItems="center"
         style={loading && styles.hidden}
       >
-        <Heading size="2xl" mb="10" color="primary.600">
+        <Heading size="2xl" mb="8">
           Sign in
         </Heading>
 
         <LoginForm handleOnSubmit={handleOnSubmit} />
+
         <Text>Or</Text>
         <Button width="full" my="3" variant="outline" rounded="full">
           Sign in with Google

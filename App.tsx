@@ -6,6 +6,7 @@ import { NativeBaseProvider } from 'native-base';
 import Navigation from '@navigation/index';
 import useCachedResources from '@hooks/useCachedResources';
 import { Loading } from '@atoms';
+import { LogBox } from 'react-native';
 
 const App = () => {
   const isLoadingComplete = useCachedResources();
@@ -19,6 +20,10 @@ const App = () => {
       </SafeAreaProvider>
     );
   }
+
+  LogBox.ignoreLogs([
+    'Warning: AsyncStorage has been extracted from react-native core and will be removed in a future release.',
+  ]);
 
   return (
     <SafeAreaProvider>
