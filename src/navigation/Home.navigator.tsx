@@ -1,30 +1,30 @@
 import * as React from 'react';
-import { View } from 'native-base';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import {
+  HomeScreen,
+  ChatScreen,
+  ProfileScreen,
+  PostScreen,
+  UpdateProfileScreen,
+  ProfileSettingsScreen,
+} from '@screens/index';
+import { HomeParamList, RootParamList } from './Navigation.types';
 
-import { HomeScreen, ChatScreen, ProfileScreen, PostScreen } from '@screens/index';
-import { HomeParamList } from './Navigation.types';
-import { Logout } from '@molecules';
+const Tab = createBottomTabNavigator<HomeParamList>();
+const HomeStack = createNativeStackNavigator<RootParamList>();
 
-const HomeStack = createBottomTabNavigator<HomeParamList>();
-
-const HomeStackNavigator = () => (
-  <HomeStack.Navigator
+const TabStackNavigator = () => (
+  <Tab.Navigator
     initialRouteName="home"
     screenOptions={({ navigation }) => ({
       presentation: 'modal',
       tabBarShowLabel: false,
-      tabBarActiveTintColor: '#ff6600',
-      headerLeft: () => (
-        <View>
-          <Ionicons name="chevron-back" size={24} onPress={() => navigation.goBack} />
-        </View>
-      ),
-      headerRight: () => <Logout />,
+      // headerRight: () => <Logout />,
     })}
   >
-    <HomeStack.Screen
+    <Tab.Screen
       name="home"
       component={HomeScreen}
       options={() => ({
@@ -32,7 +32,7 @@ const HomeStackNavigator = () => (
         tabBarIcon: (props) => <Ionicons name="md-home" {...props} />,
       })}
     />
-    <HomeStack.Screen
+    <Tab.Screen
       name="post"
       component={PostScreen}
       options={() => ({
@@ -40,7 +40,7 @@ const HomeStackNavigator = () => (
         tabBarIcon: (props) => <MaterialIcons name="post-add" {...props} />,
       })}
     />
-    <HomeStack.Screen
+    <Tab.Screen
       name="chat"
       component={ChatScreen}
       options={() => ({
@@ -50,13 +50,33 @@ const HomeStackNavigator = () => (
         // tabBarBadgeStyle: { color: 'white', backgroundColor: '#ff6600' },
       })}
     />
-    <HomeStack.Screen
+    <Tab.Screen
       name="profile"
       component={ProfileScreen}
       options={() => ({
         title: 'Profile',
         tabBarIcon: (props) => <FontAwesome5 name="user-alt" {...props} size={24} />,
       })}
+    />
+  </Tab.Navigator>
+);
+
+const HomeStackNavigator = () => (
+  <HomeStack.Navigator initialRouteName="root">
+    <HomeStack.Screen
+      name="root"
+      component={TabStackNavigator}
+      options={() => ({ headerShown: false })}
+    />
+    <HomeStack.Screen
+      name="updateProfile"
+      component={UpdateProfileScreen}
+      options={() => ({ title: 'Update Profile', headerTitleAlign: 'center' })}
+    />
+    <HomeStack.Screen
+      name="profileSettings"
+      component={ProfileSettingsScreen}
+      options={() => ({ title: 'Settings Profile', headerTitleAlign: 'center' })}
     />
   </HomeStack.Navigator>
 );

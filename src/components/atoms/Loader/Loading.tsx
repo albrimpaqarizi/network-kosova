@@ -1,10 +1,20 @@
-import { Box, HStack, Spinner } from 'native-base';
+import { HStack, Spinner } from 'native-base';
 import React from 'react';
+import { StyleSheet } from 'react-native';
 
-export const Loading = () => (
-  <Box flex={1} alignItems="center" justifyContent="center">
-    <HStack space={8} justifyContent="center">
-      <Spinner size="lg" />
-    </HStack>
-  </Box>
+export const Loading = ({ loading }: { loading: boolean }) => (
+  <HStack justifyContent="center" style={loading ? styles.load : styles.hidden}>
+    <Spinner size="lg" />
+  </HStack>
 );
+
+const styles = StyleSheet.create({
+  hidden: { display: 'none' },
+  load: {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(242, 242, 242, 1)',
+  },
+});

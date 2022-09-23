@@ -1,25 +1,20 @@
 import React from 'react';
 import { auth } from '@config/firebaseApp';
-import { MaterialIcons } from '@expo/vector-icons';
 import { useAuthStore } from '@store';
-import { IconButton, View } from 'native-base';
-import { Button } from 'react-native';
+import { Center, Button } from 'native-base';
 
 export const Logout = () => {
   const { removeAuth } = useAuthStore();
 
   const handleLogout = () => {
-    auth
-      .signOut()
-      .then(() => removeAuth())
-      .catch((error) => {
-        console.log('error', error);
-      });
+    auth.signOut().then(() => removeAuth());
   };
 
   return (
-    <View>
-      <MaterialIcons onPress={handleLogout} name="logout" size={24} />
-    </View>
+    <Center w="full" mt={5}>
+      <Button width="full" variant="outline" onPress={handleLogout}>
+        Logout
+      </Button>
+    </Center>
   );
 };

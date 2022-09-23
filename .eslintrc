@@ -91,6 +91,7 @@
     "import/no-duplicates": ["warn", { "considerQueryString": true }],
     "react/jsx-props-no-spreading": "off",
     "react/no-unescaped-entities": "off",
+    "react/require-default-props": "off",
     // will save us debuging time
     "nonblock-statement-body-position": "error",
     // this will allow both named and arrow functions as callbacks
@@ -125,6 +126,14 @@
         "ignoreImports": true,
         // sometimes needed from api
         "ignoreDestructuring": true
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "vars": "all",
+        "args": "none",
+        "caughtErrors": "none"
       }
     ],
     //

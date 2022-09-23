@@ -10,6 +10,8 @@ import ChatScreen from './Chat.screen';
 import ProfileScreen from './Profile.screen';
 import HomeScreen from './Home.screen';
 import PostScreen from './Post.screen';
+import UpdateProfileScreen from './UpdateProfile.screen';
+import ProfileSettingsScreen from './ProfileSettings.screen';
 
 // exports
 export {
@@ -22,6 +24,8 @@ export {
   NotFoundScreen,
   PostScreen,
   ProfileScreen,
+  ProfileSettingsScreen,
   RegisterScreen,
+  UpdateProfileScreen,
   WelcomeScreen,
 };

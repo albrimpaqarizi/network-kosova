@@ -26,9 +26,17 @@ export type HomeParamList = {
   post: undefined;
 };
 
+export type RootParamList = {
+  root: HomeParamList;
+  updateProfile: undefined;
+  profileSettings: undefined;
+};
+
 export type RootStackParamList = AuthParamList &
   HomeParamList & {
     Modal: undefined;
+    updateProfile: undefined;
+    profileSettings: undefined;
   };
 
 // eslint-disable-next-line prettier/prettier

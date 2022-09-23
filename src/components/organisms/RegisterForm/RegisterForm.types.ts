@@ -1,8 +1,8 @@
 export interface RegisterFormInputs {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 export interface RegisterFormProps {
   handleOnSubmit: (data: RegisterFormInputs) => void;

@@ -46,13 +46,11 @@ const Navigation = () => {
     return subscriber;
   }, [getUser]);
 
-  console.log('Navigation', loading, isAuthenticated);
-
   if (loading) {
     return (
       <SafeAreaProvider>
         <NativeBaseProvider>
-          <Loading />
+          <Loading loading />
         </NativeBaseProvider>
       </SafeAreaProvider>
     );

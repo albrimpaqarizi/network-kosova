@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -29,7 +30,7 @@ const App = () => {
     <SafeAreaProvider>
       <NativeBaseProvider>
         <Navigation />
-        <StatusBar />
+        <StatusBar style="dark" />
       </NativeBaseProvider>
     </SafeAreaProvider>
   );
