@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { Alert, Button, Center, Heading, HStack, Text, useToast } from 'native-base';
+import { Alert, Button, Center, Heading, HStack, Text, useToast, View } from 'native-base';
 import { RegisterForm, RegisterFormInputs } from '@organisms';
-import { auth } from '@config/firebaseApp';
+import { auth, db } from '@config/firebaseApp';
 import { useAuthStore } from '@store';
 import { Loading } from '@atoms';
+import { addDoc, collection } from 'firebase/firestore';
 
 const RegisterScreen = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -13,26 +14,28 @@ const RegisterScreen = () => {
   const toast = useToast();
   const { addAuthUser } = useAuthStore();
 
-  const handleOnSubmit = ({ email, password, fullName }: RegisterFormInputs) => {
+  const handleOnSubmit = ({ email, fullName, gender, password }: RegisterFormInputs) => {
     setLoading(true);
-
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
         if (auth.currentUser) {
-          updateProfile(auth.currentUser, {
-            displayName: fullName.trim(),
-            // photoURL: 'https://example.com/jane-q-user/profile.jpg',
+          updateProfile(auth.currentUser, { displayName: fullName.trim() });
+          addDoc(collection(db, 'users'), {
+            gender,
+            uid: user.uid,
+            email: email.trim(),
+            fullName: fullName.trim(),
           });
         }
         addAuthUser(
           {
-            email: user.email || '',
-            emailVerified: user.emailVerified,
-            fullName: user.displayName || '',
+            uid: user.uid,
             isAnonymous: false,
+            email: email.trim(),
+            fullName: fullName.trim(),
+            emailVerified: user.emailVerified,
             phoneNumber: user.phoneNumber || '',
             photoURL: user.photoURL || '',
-            uid: user.uid || '',
           },
           true,
           false
@@ -54,7 +57,7 @@ const RegisterScreen = () => {
 
   return (
     <Center flex={1}>
-      <Center flex={1} p="8">
+      <View flex={1} p="8" width="100%" justifyContent="center" alignItems="center">
         <Heading size="xl" mb="8">
           Create new account
         </Heading>
@@ -66,7 +69,7 @@ const RegisterScreen = () => {
         <Button width="full" variant="outline" rounded="full">
           Sign up with Google
         </Button>
-      </Center>
+      </View>
 
       <Loading loading={loading} />
     </Center>

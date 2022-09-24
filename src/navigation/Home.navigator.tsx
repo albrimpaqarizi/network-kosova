@@ -1,7 +1,13 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { FontAwesome5, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import {
+  FontAwesome5,
+  Foundation,
+  Ionicons,
+  MaterialIcons,
+  SimpleLineIcons,
+} from '@expo/vector-icons';
 import {
   HomeScreen,
   ChatScreen,
@@ -9,8 +15,12 @@ import {
   PostScreen,
   UpdateProfileScreen,
   ProfileSettingsScreen,
+  SingleChatScreen,
+  UsersScreen,
 } from '@screens/index';
 import { HomeParamList, RootParamList } from './Navigation.types';
+import { IconButton, View } from 'native-base';
+import { GestureResponderEvent } from 'react-native';
 
 const Tab = createBottomTabNavigator<HomeParamList>();
 const HomeStack = createNativeStackNavigator<RootParamList>();
@@ -21,6 +31,7 @@ const TabStackNavigator = () => (
     screenOptions={({ navigation }) => ({
       presentation: 'modal',
       tabBarShowLabel: false,
+      tabBarHideOnKeyboard: true,
       // headerRight: () => <Logout />,
     })}
   >
@@ -41,13 +52,17 @@ const TabStackNavigator = () => (
       })}
     />
     <Tab.Screen
-      name="chat"
+      name="chats"
       component={ChatScreen}
-      options={() => ({
+      options={({ navigation }) => ({
         title: 'Chat',
         tabBarBadge: 3,
         tabBarIcon: (props) => <Ionicons name="chatbox-ellipses-outline" {...props} />,
-        // tabBarBadgeStyle: { color: 'white', backgroundColor: '#ff6600' },
+        headerRight: () => (
+          <IconButton onPress={(_event: GestureResponderEvent) => navigation.navigate('users')}>
+            <SimpleLineIcons name="note" size={20} color="black" />
+          </IconButton>
+        ),
       })}
     />
     <Tab.Screen
@@ -69,10 +84,23 @@ const HomeStackNavigator = () => (
       options={() => ({ headerShown: false })}
     />
     <HomeStack.Screen
+      name="chat"
+      component={SingleChatScreen}
+      options={() => ({
+        headerTitleStyle: { fontSize: 15 },
+        headerRight: () => (
+          <View>
+            <Foundation name="info" size={28} color="black" />
+          </View>
+        ),
+      })}
+    />
+    <HomeStack.Screen
       name="updateProfile"
       component={UpdateProfileScreen}
       options={() => ({ title: 'Update Profile', headerTitleAlign: 'center' })}
     />
+    <HomeStack.Screen name="users" component={UsersScreen} options={() => ({ title: 'Users' })} />
     <HomeStack.Screen
       name="profileSettings"
       component={ProfileSettingsScreen}

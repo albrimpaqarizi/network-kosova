@@ -12,6 +12,8 @@ import HomeScreen from './Home.screen';
 import PostScreen from './Post.screen';
 import UpdateProfileScreen from './UpdateProfile.screen';
 import ProfileSettingsScreen from './ProfileSettings.screen';
+import SingleChatScreen from './SingleChat.screen';
+import UsersScreen from './Users.screen';
 
 // exports
 export {
@@ -26,6 +28,8 @@ export {
   ProfileScreen,
   ProfileSettingsScreen,
   RegisterScreen,
+  SingleChatScreen,
   UpdateProfileScreen,
+  UsersScreen,
   WelcomeScreen,
 };

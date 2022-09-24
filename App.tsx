@@ -16,13 +16,14 @@ const App = () => {
     return (
       <SafeAreaProvider>
         <NativeBaseProvider>
-          <Loading />
+          <Loading loading />
         </NativeBaseProvider>
       </SafeAreaProvider>
     );
   }
 
   LogBox.ignoreLogs([
+    'Setting a timer',
     'Warning: AsyncStorage has been extracted from react-native core and will be removed in a future release.',
   ]);
 

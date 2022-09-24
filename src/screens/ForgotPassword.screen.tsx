@@ -21,6 +21,7 @@ const ForgotPasswordScreen = () => {
       .then((response) => {
         // Password reset email sent!
         console.log('response', response);
+
         // navigation.navigate('home', {
         //   screen: 'home',
         // });

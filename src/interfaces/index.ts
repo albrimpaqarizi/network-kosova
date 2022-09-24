@@ -1,4 +1,4 @@
+export * from './models/Message.model';
 export * from './models/User.model';
 export * from './types/Nullable.types';
-
-// exports
+export * from './types/Route.types';

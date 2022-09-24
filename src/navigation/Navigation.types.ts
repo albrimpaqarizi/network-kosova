@@ -22,21 +22,22 @@ export type AuthParamList = {
 export type HomeParamList = {
   home: undefined;
   profile: undefined;
-  chat: undefined;
+  chats: undefined;
   post: undefined;
 };
 
 export type RootParamList = {
   root: HomeParamList;
   updateProfile: undefined;
+  users: undefined;
+  chat: { uid: string; docId?: string } | undefined;
   profileSettings: undefined;
 };
 
 export type RootStackParamList = AuthParamList &
-  HomeParamList & {
+  HomeParamList &
+  Omit<RootParamList, 'root'> & {
     Modal: undefined;
-    updateProfile: undefined;
-    profileSettings: undefined;
   };
 
 // eslint-disable-next-line prettier/prettier

@@ -6,7 +6,7 @@ const LoadScreen = () => {
   // hooks
   useAuth();
 
-  return <Loading />;
+  return <Loading loading />;
 };
 
 export default LoadScreen;

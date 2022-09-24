@@ -5,4 +5,7 @@ export const ProfileFormSchema = zod.object({
     required_error: 'Full name is required',
     invalid_type_error: 'Full name must be a string',
   }),
+  gender: zod.string({
+    required_error: 'Gender is required',
+  }),
 });

@@ -7,3 +7,9 @@ export interface AuthUserModel {
   phoneNumber: string;
   uid: string;
 }
+
+export interface UserModel {
+  fullName: string;
+  avatar: string;
+  uid: string;
+}
