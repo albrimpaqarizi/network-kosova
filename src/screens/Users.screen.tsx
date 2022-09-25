@@ -28,7 +28,7 @@ const UsersScreen = () => {
   const navigation = useNavigation();
 
   // handlers
-  const hanldeNavigation = (uid: string) => navigation.navigate('chat', { uid });
+  const hanldeNavigation = (user: UserModel) => navigation.navigate('chat', { user });
 
   useLayoutEffect(() => {
     const q = query(
@@ -76,7 +76,7 @@ const UsersScreen = () => {
           data={users}
           width="full"
           renderItem={({ item: { avatar, fullName, uid } }) => (
-            <TouchableOpacity onPress={() => hanldeNavigation(uid)}>
+            <TouchableOpacity onPress={() => hanldeNavigation({ avatar, fullName, uid })}>
               <Box
                 borderBottomWidth="1"
                 borderColor="light.200"

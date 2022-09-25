@@ -1,45 +1,50 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { DefaultTheme, NavigationContainer } from '@react-navigation/native';
-
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NativeBaseProvider } from 'native-base';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import LinkingConfiguration from './LinkingConfiguration';
 import RootNavigator from './Root.navigator';
 import { useAuthStore } from '@store';
-import { auth } from '@config/firebaseApp';
+import { auth, db } from '@config/firebaseApp';
 import { onAuthStateChanged } from 'firebase/auth';
 import HomeStackNavigator from './Home.navigator';
 import { Loading } from '@atoms';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NativeBaseProvider } from 'native-base';
 
 const Navigation = () => {
   // local state
   const [loading, setLoading] = useState<boolean>(true);
 
   // hooks
-  const { addAuthUser, removeAuth, isAuthenticated } = useAuthStore();
+  const { addAuthUser, removeAuth, user, isAuthenticated } = useAuthStore();
 
   const getUser = useCallback(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        addAuthUser(
-          {
-            email: user.email || '',
-            emailVerified: user.emailVerified,
-            fullName: user.displayName || '',
-            isAnonymous: false,
-            phoneNumber: user.phoneNumber || '',
-            photoURL: user.photoURL || '',
-            uid: user.uid || '',
-          },
-          true,
-          false
-        );
+    onAuthStateChanged(auth, async (response) => {
+      if (response) {
+        const queryUser = query(collection(db, 'users'), where('uid', '==', response?.uid));
+        onSnapshot(queryUser, (snapshot) => {
+          const { fullName, avatar, role, email } = snapshot.docs[0].data();
+          addAuthUser(
+            {
+              role,
+              email,
+              fullName,
+              isAnonymous: false,
+              uid: response.uid || '',
+              emailVerified: response.emailVerified,
+              photoURL: avatar || user?.photoURL,
+            },
+            true,
+            false
+          );
+          setLoading(false);
+        });
       } else {
         removeAuth();
+        setLoading(false);
       }
-      setLoading(false);
     });
-  }, [addAuthUser, removeAuth]);
+  }, [addAuthUser, removeAuth, user]);
 
   useEffect(() => {
     const subscriber = getUser();

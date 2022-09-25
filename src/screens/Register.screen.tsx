@@ -1,11 +1,22 @@
 import * as React from 'react';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { Alert, Button, Center, Heading, HStack, Text, useToast, View } from 'native-base';
-import { RegisterForm, RegisterFormInputs } from '@organisms';
+import { addDoc, collection } from 'firebase/firestore';
+import {
+  Alert,
+  Button,
+  Center,
+  Heading,
+  HStack,
+  ScrollView,
+  Text,
+  useToast,
+  View,
+} from 'native-base';
 import { auth, db } from '@config/firebaseApp';
 import { useAuthStore } from '@store';
 import { Loading } from '@atoms';
-import { addDoc, collection } from 'firebase/firestore';
+import { RegisterForm, RegisterFormInputs } from '@organisms';
+import { UserRoleEnum } from '@enums/UserRole.enum';
 
 const RegisterScreen = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
@@ -16,30 +27,25 @@ const RegisterScreen = () => {
 
   const handleOnSubmit = ({ email, fullName, gender, password }: RegisterFormInputs) => {
     setLoading(true);
+
     createUserWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
+        const data = { email, fullName, uid: user.uid, role: UserRoleEnum.GUEST };
         if (auth.currentUser) {
-          updateProfile(auth.currentUser, { displayName: fullName.trim() });
-          addDoc(collection(db, 'users'), {
-            gender,
-            uid: user.uid,
-            email: email.trim(),
-            fullName: fullName.trim(),
+          updateProfile(auth.currentUser, { displayName: fullName });
+          addDoc(collection(db, 'users'), { ...data, gender }).then(() => {
+            addAuthUser(
+              {
+                ...data,
+                isAnonymous: false,
+                photoURL: user.photoURL || '',
+                emailVerified: user.emailVerified,
+              },
+              true,
+              false
+            );
           });
         }
-        addAuthUser(
-          {
-            uid: user.uid,
-            isAnonymous: false,
-            email: email.trim(),
-            fullName: fullName.trim(),
-            emailVerified: user.emailVerified,
-            phoneNumber: user.phoneNumber || '',
-            photoURL: user.photoURL || '',
-          },
-          true,
-          false
-        );
       })
 
       .catch((error) => {
@@ -56,23 +62,24 @@ const RegisterScreen = () => {
   };
 
   return (
-    <Center flex={1}>
-      <View flex={1} p="8" width="100%" justifyContent="center" alignItems="center">
-        <Heading size="xl" mb="8">
-          Create new account
-        </Heading>
+    <ScrollView mt={20}>
+      <Center flex={1}>
+        <View flex={1} p="8" width="100%" justifyContent="center" alignItems="center">
+          <Heading size="xl" mb="8">
+            Create new account
+          </Heading>
 
-        <RegisterForm handleOnSubmit={handleOnSubmit} />
+          <RegisterForm handleOnSubmit={handleOnSubmit} />
 
-        <Text my="3">Or</Text>
+          <Text my="3">Or</Text>
 
-        <Button width="full" variant="outline" rounded="full">
-          Sign up with Google
-        </Button>
-      </View>
-
-      <Loading loading={loading} />
-    </Center>
+          <Button width="full" variant="outline" rounded="full">
+            Sign up with Google
+          </Button>
+        </View>
+        <Loading loading={loading} />
+      </Center>
+    </ScrollView>
   );
 };
 

@@ -10,6 +10,9 @@ export const RegisterForm = ({ handleOnSubmit }: RegisterFormProps) => {
   const { control, handleSubmit } = useForm<RegisterFormInputs>({
     mode: 'onSubmit',
     resolver: zodResolver(RegisterFormSchema),
+    defaultValues: {
+      gender: 'Male',
+    },
   });
 
   return (
@@ -24,6 +27,7 @@ export const RegisterForm = ({ handleOnSubmit }: RegisterFormProps) => {
         <TextField<RegisterFormInputs>
           label="Email"
           placeholder="example@gmail.com"
+          autoCapitalize="none"
           control={{ control, name: 'email' }}
         />
 

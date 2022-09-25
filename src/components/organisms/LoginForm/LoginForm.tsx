@@ -23,6 +23,8 @@ export const LoginForm = ({ handleOnSubmit }: LoginFormProps) => {
       <VStack space={4} alignItems="center">
         <TextField<LoginInputs>
           label="Email"
+          autoCapitalize="none"
+          autoCompleteType="email"
           placeholder="example@gmail.com"
           control={{ control, name: 'email' }}
         />

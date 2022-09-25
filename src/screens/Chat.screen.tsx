@@ -18,37 +18,33 @@ import dayjs from 'dayjs';
 import { useNavigation } from '@react-navigation/native';
 import { auth, db } from '@config/firebaseApp';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { MessageModel } from '@interfaces';
+import { ChatModel, UserModel } from '@interfaces';
 import { getInitials } from '@utils';
 
 const ChatScreen = () => {
   const navigation = useNavigation();
-  const [messages, setMessages] = useState<MessageModel[]>([]);
+  const [chats, setChats] = useState<ChatModel[]>([]);
 
-  const hanldeNavigation = (uid: string, docId: string) => {
-    navigation.navigate('chat', { uid, docId });
+  const hanldeNavigation = (user: UserModel, chatId: string) => {
+    navigation.navigate('chat', { user, chatId });
   };
 
   useLayoutEffect(() => {
-    const q = query(
-      collection(db, 'chats'),
-      where('uid', 'array-contains', auth.currentUser?.uid)
-      // orderBy('createdAt', 'desc')
-    );
+    const q = query(collection(db, 'chats'), where('uid', 'array-contains', auth.currentUser?.uid));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      setMessages(
-        snapshot.docs.map(
-          (document) =>
-            ({
-              // eslint-disable-next-line no-underscore-dangle
-              _id: document.data()._id,
-              docId: document.id,
-              text: document.data().text,
-              user: document.data().user,
-              createdAt: document.data().createdAt.toDate(),
-            } as unknown as MessageModel)
-        )
+      const chat = snapshot.docs.map(
+        (document) =>
+          ({
+            id: document.id,
+            text: document.data().text,
+            user: document
+              .data()
+              .users.find((item: { uid: string }) => item.uid !== auth.currentUser?.uid),
+            createdAt: document.data().createdAt.toDate(),
+          } as unknown as ChatModel)
       );
+
+      setChats(chat);
     });
 
     return () => {
@@ -73,11 +69,10 @@ const ChatScreen = () => {
 
       <View flex={1} width="full" p={2} justifyContent="center" alignItems="center">
         <FlatList
-          data={messages}
+          data={chats}
           width="full"
-          renderItem={({ item: { user, text, createdAt, docId } }) => (
-            // eslint-disable-next-line no-underscore-dangle
-            <TouchableOpacity onPress={() => hanldeNavigation(user._id, docId)}>
+          renderItem={({ item: { id, user, text, createdAt } }) => (
+            <TouchableOpacity onPress={() => hanldeNavigation(user, id)}>
               <Box
                 borderBottomWidth="1"
                 borderColor="light.200"
@@ -87,11 +82,12 @@ const ChatScreen = () => {
               >
                 <HStack space={[2, 3]} justifyContent="space-between">
                   <Avatar size="md" {...(user.avatar && { source: { uri: user.avatar } })}>
-                    {getInitials(user.name)}
+                    {getInitials(user.fullName)}
+                    <Avatar.Badge color="green.500" />
                   </Avatar>
                   <VStack>
                     <Text color="coolGray.800" bold>
-                      {user.name}
+                      {user.fullName}
                     </Text>
                     <Text color="coolGray.600" isTruncated maxW="200">
                       {text}
@@ -105,7 +101,7 @@ const ChatScreen = () => {
               </Box>
             </TouchableOpacity>
           )}
-          keyExtractor={({ _id }) => _id}
+          keyExtractor={({ id }) => id}
         />
       </View>
     </Center>

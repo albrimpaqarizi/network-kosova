@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 /* eslint-disable @typescript-eslint/no-empty-interface */
+import { UserModel } from '@interfaces';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -30,7 +31,7 @@ export type RootParamList = {
   root: HomeParamList;
   updateProfile: undefined;
   users: undefined;
-  chat: { uid: string; docId?: string } | undefined;
+  chat: { user: UserModel; chatId?: string } | undefined;
   profileSettings: undefined;
 };
 

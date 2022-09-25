@@ -16,6 +16,8 @@ export const ForgotPasswordForm = ({ handleOnSubmit }: ForgotPasswordProps) => {
       <TextField<ForgotPasswordInputs>
         rounded="lg"
         placeholder="example@gmail.com"
+        autoCapitalize="none"
+        autoCompleteType="email"
         control={{ control, name: 'email' }}
       />
 

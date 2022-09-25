@@ -28,6 +28,9 @@ export const ProfileSettingsForm = ({ data, handleOnSubmit }: ProfileFormProps) 
           label="Email"
           px="1"
           variant="underlined"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          autoCompleteType="email"
           placeholder="example@gmail.com"
           control={{ control, name: 'email' }}
         />

@@ -3,6 +3,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '@config/firebaseApp';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useAuthStore } from '@store';
+import { UserRoleEnum } from '@enums/UserRole.enum';
 
 export const useAuth = (): boolean => {
   // local state
@@ -17,14 +18,14 @@ export const useAuth = (): boolean => {
       onAuthStateChanged(auth, (user) => {
         setLoading(true);
         if (user) {
-          console.log('🚀 ~ onAuthStateChanged ~ uid', user.email);
           addAuthUser(
             {
+              uid: user.uid || '',
               email: user.email || '',
               emailVerified: user.emailVerified,
               fullName: user.displayName || '',
               isAnonymous: false,
-              phoneNumber: user.phoneNumber || '',
+              role: UserRoleEnum.GUEST,
               photoURL: user.photoURL || '',
             },
             true,

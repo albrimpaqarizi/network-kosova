@@ -1,6 +1,8 @@
+import { UserModel } from '../models/User.model';
+
 export type ChatParamList = {
   chat: {
-    uid: string;
-    docId?: string;
+    user: UserModel;
+    chatId?: string;
   };
 };

@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { GestureResponderEvent } from 'react-native';
 import { Alert, Button, Center, Heading, HStack, Text, useToast, View } from 'native-base';
-import { auth } from '@config/index';
+import { auth, db } from '@config/index';
 import { useAuthStore } from '@store';
 import { LoginForm, LoginInputs } from '@organisms';
 import { Loading } from '@atoms';
+import { query, collection, where, onSnapshot } from 'firebase/firestore';
 
 const LoginScreen = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -41,23 +42,26 @@ const LoginScreen = () => {
 
     signInWithEmailAndPassword(auth, email, password)
       .then(({ user }) => {
-        addAuthUser(
-          {
-            email: user.email || '',
-            emailVerified: user.emailVerified,
-            fullName: user.displayName || '',
-            isAnonymous: false,
-            phoneNumber: user.phoneNumber || '',
-            photoURL: user.photoURL || '',
-            uid: user.uid || '',
-          },
-          true,
-          false
-        );
+        const q = query(collection(db, 'users'), where('uid', '==', user?.uid));
+        onSnapshot(q, (snapshot) => {
+          addAuthUser(
+            {
+              isAnonymous: false,
+              uid: user.uid || '',
+              email: user.email || '',
+              emailVerified: user.emailVerified,
+              role: snapshot.docs[0].data().role,
+              photoURL: snapshot.docs[0].data().avatar || '',
+              fullName: snapshot.docs[0].data().fullName || '',
+            },
+            true,
+            false
+          );
+        });
+
+        setLoading(false);
       })
       .catch((error) => {
-        console.log('🚀 ~ file: Login.screen.tsx ~ line 58 ~ handleOnSubmit ~ error', error);
-
         toast.show({
           render: () => (
             <HStack space={2} justifyContent="center" alignItems="center">
@@ -66,8 +70,8 @@ const LoginScreen = () => {
             </HStack>
           ),
         });
+        setLoading(false);
       });
-    setLoading(false);
   };
 
   return (
