@@ -1,41 +1,22 @@
 import React, { useState } from 'react';
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { GestureResponderEvent } from 'react-native';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { Alert, Button, Center, Heading, HStack, Text, useToast, View } from 'native-base';
-import { auth, db } from '@config/index';
+import { useNavigation } from '@react-navigation/native';
+import { query, collection, where, onSnapshot } from 'firebase/firestore';
 import { useAuthStore } from '@store';
 import { LoginForm, LoginInputs } from '@organisms';
 import { Loading } from '@atoms';
-import { query, collection, where, onSnapshot } from 'firebase/firestore';
+import { auth, db } from '@config/index';
 
 const LoginScreen = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
 
   // hooks
   const toast = useToast();
   const { addAuthUser } = useAuthStore();
+  const navigation = useNavigation();
 
-  // const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-  //   clientId: '231556270244-58mkid6g2kbui0h0t5bkbsa55lrpht4p.apps.googleusercontent.com',
-  // });
-
-  // handlers
-  const handleGoogleAuth = async (_event: GestureResponderEvent) => {
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({ propmt: 'Select account' });
-    provider.addScope('email');
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        console.log('🚀 ~ file: Login.screen.tsx ~ .then ~ result', result);
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        console.log('🚀 ~ file: Login.screen.tsx ~ .then ~ credential', credential);
-      })
-      .catch((error) => {
-        console.log('🚀 ~ file: Login.screen.tsx ~ handleGoogleAuth ~ error', error);
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log('🚀 ~ file: Login.screen.tsx ~ handleGoogleAuth ~ credential', credential);
-      });
-  };
+  const handleToSignUp = () => navigation.navigate('register');
 
   const handleOnSubmit = ({ email, password }: LoginInputs) => {
     setLoading(true);
@@ -62,11 +43,13 @@ const LoginScreen = () => {
         setLoading(false);
       })
       .catch((error) => {
+        console.log('🚀 ~ file: Login.screen.tsx ~ line 46 ~ handleOnSubmit ~ error', error);
+
         toast.show({
           render: () => (
             <HStack space={2} justifyContent="center" alignItems="center">
               <Alert.Icon color="red.500" />
-              <Text color="red.500">{error}</Text>
+              <Text color="red.500">Your email or password is incorrect, please try again</Text>
             </HStack>
           ),
         });
@@ -84,8 +67,8 @@ const LoginScreen = () => {
         <LoginForm handleOnSubmit={handleOnSubmit} />
 
         <Text>Or</Text>
-        <Button width="full" my="3" variant="outline" rounded="full" onPress={handleGoogleAuth}>
-          Sign in with Google
+        <Button width="full" my="3" variant="outline" rounded="full" onPress={handleToSignUp}>
+          Sign Up
         </Button>
       </View>
 

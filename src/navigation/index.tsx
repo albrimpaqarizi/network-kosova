@@ -23,20 +23,22 @@ const Navigation = () => {
       if (response) {
         const queryUser = query(collection(db, 'users'), where('uid', '==', response?.uid));
         onSnapshot(queryUser, (snapshot) => {
-          const { fullName, avatar, role, email } = snapshot.docs[0].data();
-          addAuthUser(
-            {
-              role,
-              email,
-              fullName,
-              isAnonymous: false,
-              uid: response.uid || '',
-              emailVerified: response.emailVerified,
-              photoURL: avatar || user?.photoURL,
-            },
-            true,
-            false
-          );
+          if (snapshot.docs?.length !== 0) {
+            const { fullName, avatar, role, email } = snapshot.docs[0].data();
+            addAuthUser(
+              {
+                role,
+                email,
+                fullName,
+                isAnonymous: false,
+                uid: response.uid || '',
+                emailVerified: response.emailVerified,
+                photoURL: avatar || user?.photoURL,
+              },
+              true,
+              false
+            );
+          }
           setLoading(false);
         });
       } else {

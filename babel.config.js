@@ -21,6 +21,7 @@ module.exports = function (api) {
             '@styles': './src/styles',
             '@hooks': './src/hooks',
             '@enums': './src/enums',
+            '@static': './src/static',
             '@interfaces': './src/interfaces',
             '@utils': './src/utils',
             '@validations': './src/validations',

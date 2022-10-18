@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { Center, Heading, HStack, Spinner, View } from 'native-base';
-import { sendPasswordResetEmail, getAuth } from 'firebase/auth';
-import { app } from '@config/index';
+import { Center, Heading, View } from 'native-base';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '@config/index';
 import { ForgotPasswordForm, ForgotPasswordInputs } from '@organisms';
+import { Loading } from '@atoms';
 
 const ForgotPasswordScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -14,34 +14,20 @@ const ForgotPasswordScreen = () => {
 
   // handlers
   const handleOnSubmit = ({ email }: ForgotPasswordInputs) => {
-    const auth = getAuth(app);
-
     setLoading(true);
     sendPasswordResetEmail(auth, email.trim())
-      .then((response) => {
-        // Password reset email sent!
-        console.log('response', response);
-
-        // navigation.navigate('home', {
-        //   screen: 'home',
-        // });
+      .then(() => {
+        navigation.navigate('login');
         setLoading(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
-        console.log('error', error);
       });
   };
 
   return (
     <Center flex={1} p="8">
-      <View
-        flex={1}
-        width="100%"
-        justifyContent="center"
-        alignItems="center"
-        style={loading && styles.hidden}
-      >
+      <View flex={1} width="100%" justifyContent="center" alignItems="center">
         <Heading size="2xl" mb="10">
           Reset password
         </Heading>
@@ -49,15 +35,9 @@ const ForgotPasswordScreen = () => {
         <ForgotPasswordForm handleOnSubmit={handleOnSubmit} />
       </View>
 
-      <HStack space={8} justifyContent="center" style={!loading && styles.hidden}>
-        <Spinner size="lg" />
-      </HStack>
+      <Loading loading={loading} />
     </Center>
   );
 };
 
 export default ForgotPasswordScreen;
-
-const styles = StyleSheet.create({
-  hidden: { display: 'none' },
-});

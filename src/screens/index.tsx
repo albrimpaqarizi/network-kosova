@@ -1,6 +1,5 @@
 // imports
 import ForgotPasswordScreen from './ForgotPassword.screen';
-import LoadScreen from './Load.screen';
 import LoginScreen from './Login.screen';
 import ModalScreen from './ModalScreen';
 import NotFoundScreen from './NotFound.screen';
@@ -20,7 +19,6 @@ export {
   ChatScreen,
   ForgotPasswordScreen,
   HomeScreen,
-  LoadScreen,
   LoginScreen,
   ModalScreen,
   NotFoundScreen,

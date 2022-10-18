@@ -23,8 +23,9 @@ import { Avatar, HStack, IconButton, View } from 'native-base';
 import { GestureResponderEvent, Text } from 'react-native';
 import { getInitials } from '@utils';
 
-const Tab = createBottomTabNavigator<HomeParamList>();
 const HomeStack = createNativeStackNavigator<RootParamList>();
+
+const Tab = createBottomTabNavigator<HomeParamList>();
 
 const TabStackNavigator = () => (
   <Tab.Navigator
@@ -56,7 +57,6 @@ const TabStackNavigator = () => (
       component={ChatScreen}
       options={({ navigation }) => ({
         title: 'Chat',
-        tabBarBadge: 3,
         tabBarIcon: (props) => <Ionicons name="chatbox-ellipses-outline" {...props} />,
         headerRight: () => (
           <IconButton onPress={(_event: GestureResponderEvent) => navigation.navigate('users')}>

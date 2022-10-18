@@ -43,31 +43,30 @@ const SingleChatScreen = () => {
     [messages, params, user]
   );
 
-  //   const renderBubble = (props: Bubble<MessageModel>['props']) => (
-  //     <Bubble {...props} wrapperStyle={{ left: { backgroundColor: '#f2f2f2' } }} />
-  //   );
+  const onSubmit = useCallback(
+    async (newPost: MessageModel[]) => {
+      addDoc(collection(db, 'posts'), { ...newPost[0], userId: params.userId });
+    },
+    [messages, params, user]
+  );
 
   useLayoutEffect(() => {
-    const unsubscribe = () => {
+    const q = query(collection(db, 'messages'), where('chatId', '==', params?.chatId));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       if (params?.chatId) {
-        setLoading(true);
-        const q = query(collection(db, 'messages'), where('chatId', '==', params?.chatId));
-
-        onSnapshot(q, (snapshot) => {
-          const newData = snapshot.docs.map(
-            (document) =>
-              ({
-                _id: document.data()._id,
-                text: document.data().text,
-                user: document.data().user,
-                createdAt: document.data().createdAt.toDate(),
-              } as unknown as MessageModel)
-          );
-          setMessages(newData);
-          setLoading(false);
-        });
+        const newData = snapshot.docs.map(
+          (document) =>
+            ({
+              _id: document.data()._id,
+              text: document.data().text,
+              user: document.data().user,
+              createdAt: document.data().createdAt.toDate(),
+            } as unknown as MessageModel)
+        );
+        setMessages(newData);
+        setLoading(false);
       }
-    };
+    });
 
     return () => {
       unsubscribe();

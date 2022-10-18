@@ -2,7 +2,7 @@ export * from './ForgotPasswordForm/ForgotPasswordForm';
 export * from './LoginForm/LoginForm';
 export * from './ProfileSettings/ProfileSettingsForm';
 export * from './RegisterForm/RegisterForm';
-export * from './UserList/UserList';
+export * from './WelcomeSlider';
 
 // types
 export * from './ForgotPasswordForm/ForgotPasswordForm.types';

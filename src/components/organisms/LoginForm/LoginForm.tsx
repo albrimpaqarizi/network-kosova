@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import * as React from 'react';
 import { TextField } from '@atoms';
 import { useNavigation } from '@react-navigation/native';
@@ -36,7 +37,7 @@ export const LoginForm = ({ handleOnSubmit }: LoginFormProps) => {
           control={{ control, name: 'password' }}
         />
       </VStack>
-      <Link isUnderlined mb="3" alignSelf="flex-end" onPress={handleForgotPassword} href="/">
+      <Link isUnderlined mb="3" alignSelf="flex-end" onPress={handleForgotPassword}>
         Forgot Password?
       </Link>
 
